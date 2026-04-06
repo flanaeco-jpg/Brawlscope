@@ -311,14 +311,57 @@
 
   .player-avatar {
     width: 64px; height: 64px;
-    border-radius: 50%;
+    border-radius: 12px;
     border: 2px solid var(--accent);
     background: var(--surface2);
     object-fit: cover;
     flex-shrink: 0;
   }
 
-  .player-info { flex: 1; }
+  /* ─── RARITY COLORS ─── */
+  .rarity-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    font-family: 'Orbitron', monospace;
+    letter-spacing: 1px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .rarity-common { background: rgba(160,160,160,0.2); color: #a0a0a0; border: 1px solid rgba(160,160,160,0.4); }
+  .rarity-rare { background: rgba(68,144,255,0.2); color: #4490ff; border: 1px solid rgba(68,144,255,0.4); }
+  .rarity-super-rare { background: rgba(0,212,255,0.2); color: #00d4ff; border: 1px solid rgba(0,212,255,0.4); }
+  .rarity-epic { background: rgba(163,71,255,0.2); color: #a347ff; border: 1px solid rgba(163,71,255,0.4); }
+  .rarity-mythic { background: rgba(255,71,87,0.2); color: #ff4757; border: 1px solid rgba(255,71,87,0.4); }
+  .rarity-legendary { background: rgba(255,201,0,0.2); color: #ffc900; border: 1px solid rgba(255,201,0,0.4); }
+
+  /* brawler card border by rarity */
+  .brawler-card.rarity-rare { border-color: rgba(68,144,255,0.3); }
+  .brawler-card.rarity-super-rare { border-color: rgba(0,212,255,0.3); }
+  .brawler-card.rarity-epic { border-color: rgba(163,71,255,0.3); }
+  .brawler-card.rarity-mythic { border-color: rgba(255,71,87,0.3); }
+  .brawler-card.rarity-legendary { border-color: rgba(255,201,0,0.4); box-shadow: 0 0 12px rgba(255,201,0,0.15); }
+
+  /* ─── SAVED TAG CHIP ─── */
+  .saved-tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 6px 14px;
+    background: rgba(247,201,72,0.1);
+    border: 1px solid rgba(247,201,72,0.3);
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+  .saved-tag-chip:hover { background: rgba(247,201,72,0.2); transform: translateY(-1px); }
 
   .player-name {
     font-family: 'Orbitron', monospace;
@@ -1216,6 +1259,11 @@
       </button>
     </div>
     <div class="status-msg" id="statusMsg"></div>
+    <div id="savedTagArea" style="text-align:center;display:none">
+      <div class="saved-tag-chip" id="savedTagChip" onclick="loadSavedTag()">
+        🔖 <span id="savedTagText"></span>
+      </div>
+    </div>
     <div class="loader" id="loader">
       <div class="spinner"></div>
       <div class="loader-text" data-i18n="loading">ANALYSE EN COURS...</div>
@@ -1408,6 +1456,7 @@
 <footer>
   <div>BRAWLSCOPS — Not affiliated with Supercell. Images © Brawlify CDN / Supercell Fan Content Policy.</div>
   <div style="margin-top:6px; color:var(--text-muted);">Powered by Brawl Stars Official API + Groq AI</div>
+  <div style="margin-top:8px; color:var(--accent); font-family:'Orbitron',monospace; font-size:11px; letter-spacing:2px;">⚡ FAIT PAR FLANEOX</div>
   <div style="margin-top:12px;">
     <a href="https://youtube.com/@flaneox?si=bQLZWBoI4q6HcL36" target="_blank" rel="noopener"
        style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:linear-gradient(135deg,#ff0000,#cc0000);border-radius:20px;color:#fff;font-family:Orbitron,monospace;font-size:12px;font-weight:700;letter-spacing:1px;text-decoration:none;box-shadow:0 4px 15px rgba(255,0,0,0.3);"
@@ -1642,8 +1691,88 @@ function getBrawlerImg(id) {
   return `https://cdn.brawlify.com/brawlers/borderless/${id}.png`;
 }
 
+function getBrawlerImgWithFallback(imgEl, id) {
+  const urls = [
+    `https://cdn.brawlify.com/brawlers/borderless/${id}.png`,
+    `https://cdn.brawlify.com/brawlers/borders/${id}.png`,
+  ];
+  let idx = 0;
+  imgEl.src = urls[0];
+  imgEl.onerror = function() {
+    idx++;
+    if (idx < urls.length) { this.src = urls[idx]; }
+    else { this.style.opacity = '0.3'; }
+  };
+}
+
 function getPlayerIconImg(iconId) {
-  return `https://cdn.brawlify.com/profile/${iconId}.png`;
+  return `https://cdn.brawlify.com/profile-icons/regular/${iconId}.png`;
+}
+
+function getPlayerIconWithFallback(imgEl, iconId) {
+  const urls = [
+    `https://cdn.brawlify.com/profile-icons/regular/${iconId}.png`,
+    `https://cdn.brawlify.com/profile/${iconId}.png`,
+    `https://cdn.brawlify.com/profile/28000000.png`,
+  ];
+  let idx = 0;
+  imgEl.src = urls[0];
+  imgEl.onerror = function() {
+    idx++;
+    if (idx < urls.length) this.src = urls[idx];
+  };
+}
+
+// ─── RARITY LOOKUP ───
+const BRAWLER_RARITY = {
+  // Legendary
+  'SPIKE': 'legendary', 'CROW': 'legendary', 'LEON': 'legendary', 'SANDY': 'legendary',
+  'AMBER': 'legendary', 'MEG': 'legendary', 'CHESTER': 'legendary', 'CORDELIUS': 'legendary',
+  'KIT': 'legendary', 'DRACO': 'legendary', 'LILY': 'legendary', 'LARRY & LAWRIE': 'legendary',
+  'KENJI': 'legendary', 'SHADE': 'legendary',
+  // Mythic
+  'MAX': 'mythic', 'MR. P': 'mythic', 'SPROUT': 'mythic', 'BYRON': 'mythic',
+  'SQUEAK': 'mythic', 'LOU': 'mythic', 'RUFFS': 'mythic', 'BELLE': 'mythic',
+  'BUZZ': 'mythic', 'GRIFF': 'mythic', 'ASH': 'mythic', 'LOLA': 'mythic',
+  'FANG': 'mythic', 'EVE': 'mythic', 'JANET': 'mythic', 'BONNIE': 'mythic',
+  'OTIS': 'mythic', 'SAM': 'mythic', 'GROM': 'mythic', 'BUSTER': 'mythic',
+  'GRAY': 'mythic', 'MELODIE': 'mythic', 'ANGELO': 'mythic', 'MICO': 'mythic',
+  'CHARLIE': 'mythic', 'CHUCK': 'mythic', 'HANK': 'mythic', 'PEARL': 'mythic',
+  'CLANCY': 'mythic', 'JUJU': 'mythic', 'WILLOW': 'mythic', 'BERRY': 'mythic',
+  // Epic
+  'PIPER': 'epic', 'PAM': 'epic', 'FRANK': 'epic', 'BIBI': 'epic',
+  'BEA': 'epic', 'NANI': 'epic', 'EDGAR': 'epic', 'COLETTE': 'epic',
+  'SURGE': 'epic', 'TICULE': 'epic', 'SQUEAK2': 'epic',
+  'MORTIS': 'epic', 'TARA': 'epic', 'GENE': 'epic', 'MAX2': 'epic',
+  'PENNY': 'epic', 'CARL': 'epic', 'JACKY': 'epic', 'GALE': 'epic',
+  'EMOJIS': 'epic', 'EMZ': 'epic', 'STU': 'epic', 'MANDY': 'epic',
+  'MAISIE': 'epic', 'WATTSON': 'epic', 'LUMI': 'epic', 'DOUG': 'epic',
+  'LARRY': 'epic',
+  // Super Rare
+  'COLT': 'super-rare', 'NITA': 'super-rare', 'BULL': 'super-rare',
+  'BROCK': 'super-rare', 'RICO': 'super-rare', 'DARRYL': 'super-rare',
+  '8-BIT': 'super-rare', 'TICK': 'super-rare', 'BARLEY': 'super-rare',
+  'POCO': 'super-rare', 'ROSA': 'super-rare', 'DYNAMIKE': 'super-rare',
+  'PRIMO': 'super-rare', 'EL PRIMO': 'super-rare', 'BOW': 'super-rare',
+  'JESSIE': 'super-rare',
+  // Rare
+  'SHELLY': 'rare', 'COLT2': 'rare',
+};
+
+function getBrawlerRarity(name) {
+  const upper = name.toUpperCase();
+  for (const [bname, rarity] of Object.entries(BRAWLER_RARITY)) {
+    if (upper === bname || upper.includes(bname) || bname.includes(upper)) return rarity;
+  }
+  return 'rare'; // default
+}
+
+function getRarityLabel(rarity) {
+  const labels = {
+    'legendary': 'LÉGENDAIRE', 'mythic': 'MYTHIQUE', 'epic': 'ÉPIQUE',
+    'super-rare': 'SUPER RARE', 'rare': 'RARE', 'common': 'COMMUN'
+  };
+  return labels[rarity] || 'RARE';
 }
 
 // ══════════════════════════════════════
@@ -1692,6 +1821,9 @@ async function fetchPlayer() {
   const encodedTag = encodeURIComponent(tag);
 
   localStorage.setItem('saved_tag', tag);
+  const area = document.getElementById('savedTagArea');
+  const chipText = document.getElementById('savedTagText');
+  if (area && chipText) { chipText.textContent = tag; area.style.display = 'block'; }
 
   showLoader(true);
   hideStatus();
@@ -1765,8 +1897,8 @@ function renderDashboard(data) {
   document.getElementById('searchZone').style.paddingBottom = '20px';
 
   const iconId = data.icon?.id || 28000000;
-  document.getElementById('playerAvatar').src = getPlayerIconImg(iconId);
-  document.getElementById('playerAvatar').onerror = function() { this.src = 'https://cdn.brawlify.com/profile/28000000.png'; };
+  const avatarEl = document.getElementById('playerAvatar');
+  getPlayerIconWithFallback(avatarEl, iconId);
   document.getElementById('playerName').textContent = data.name;
   document.getElementById('playerTagDisplay').textContent = data.tag;
   document.getElementById('statTrophies').textContent = (data.trophies || 0).toLocaleString();
@@ -1806,7 +1938,7 @@ function renderPriorities(brawlers) {
         <div class="priority-rank">${i + 1}</div>
         <img class="brawler-img-small" src="${getBrawlerImg(b.id)}" alt="${b.name}" onerror="this.src='https://cdn.brawlify.com/brawlers/borders/16000000.png'">
         <div class="priority-info">
-          <div class="priority-name">${b.name} ${hasHC ? '<span class="hc-inline">⚡ HC</span>' : ''}</div>
+          <div class="priority-name">${b.name} ${hasHC ? '<span class="hc-inline">⚡ HC</span>' : ''} <span class="rarity-badge rarity-${getBrawlerRarity(b.name)}" style="font-size:8px">${getRarityLabel(getBrawlerRarity(b.name))}</span></div>
           <div class="priority-details">
             <span><img class="res-icon" src="https://cdn.brawlify.com/general/PowerPoints.png" onerror="this.style.display='none'" alt="pwr"> PWR ${b.power}/11</span>
             <span><img class="res-icon" src="https://cdn.brawlify.com/general/StarPower.png" onerror="this.style.display='none'" alt="sp"> ${sps}/2 SP</span>
@@ -1838,16 +1970,18 @@ function renderBrawlers(brawlers) {
   const grid = document.getElementById('brawlerGrid');
   grid.innerHTML = sorted.map(b => {
     const tier = getBrawlerTier(b.name);
+    const rarity = getBrawlerRarity(b.name);
     const sps = b.starPowers?.length || 0;
     const gads = b.gadgets?.length || 0;
     const pct = ((b.power - 1) / 10) * 100;
     const hasHC = b.hypercharge === true || (b.gears && b.gears.some(g => g.name && g.name.toLowerCase().includes('hyper'))) || (b.mastery && b.mastery >= 10000);
     return `
-      <div class="brawler-card tier-${tier}${hasHC ? ' has-hc' : ''}" onclick="openModal(${JSON.stringify(b).replace(/"/g,'&quot;')})">
+      <div class="brawler-card tier-${tier} rarity-${rarity}${hasHC ? ' has-hc' : ''}" onclick="openModal(${JSON.stringify(b).replace(/"/g,'&quot;')})">
         ${hasHC ? '<span class="hc-badge">⚡ HC</span>' : ''}
         <span class="tier-badge tier-${tier}" style="position:absolute;top:8px;right:8px;font-size:10px;padding:2px 6px">${tier}</span>
         <img class="brawler-card-img" src="${getBrawlerImg(b.id)}" alt="${b.name}" onerror="this.src='https://cdn.brawlify.com/brawlers/borders/16000000.png'">
         <div class="brawler-card-name">${b.name}</div>
+        <div style="text-align:center;margin-bottom:4px"><span class="rarity-badge rarity-${rarity}">${getRarityLabel(rarity)}</span></div>
         <div class="power-bar"><div class="power-fill" style="width:${pct}%"></div></div>
         <div class="power-level-badge">PWR ${b.power}</div>
         <div class="card-icons" style="margin-top:6px">
@@ -2065,6 +2199,17 @@ applyTranslations();
 const savedTag = localStorage.getItem('saved_tag');
 if (savedTag) {
   document.getElementById('tagInput').value = savedTag;
+  const area = document.getElementById('savedTagArea');
+  const chip = document.getElementById('savedTagText');
+  if (area && chip) { chip.textContent = savedTag; area.style.display = 'block'; }
+}
+
+function loadSavedTag() {
+  const tag = localStorage.getItem('saved_tag');
+  if (tag) {
+    document.getElementById('tagInput').value = tag;
+    fetchPlayer();
+  }
 }
 
 if (localStorage.getItem('groq_api_key')) {
