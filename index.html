@@ -871,6 +871,156 @@
     font-size: 16px;
     transition: all 0.2s;
   }
+  .config-btn:hover { border-color    line-height: 1.7;
+    color: var(--text);
+    white-space: pre-wrap;
+    min-height: 80px;
+  }
+
+  .ai-loading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+
+  .section-count {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ─── RESOURCES BANNER ─── */
+  .resources-banner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    align-items: center;
+  }
+
+  .resource-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .resource-icon { font-size: 18px; }
+
+  .resource-info { display: flex; flex-direction: column; }
+
+  .resource-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .resource-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ─── EMPTY STATE ─── */
+  .empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-muted);
+  }
+
+  .empty-icon { font-size: 48px; margin-bottom: 16px; }
+
+  .empty-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .empty-sub { font-size: 14px; font-family: 'Inter', sans-serif; }
+
+  /* ─── DASHBOARD ─── */
+  #dashboard { display: none; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .search-bar { flex-direction: column; }
+    .tabs { flex-direction: column; }
+    .brawler-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+    .player-card { flex-direction: column; text-align: center; }
+    .player-stats { justify-content: center; }
+  }
+
+  /* ─── HIGHLIGHT ANIMATION ─── */
+  .highlight-in {
+    animation: highlightPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes highlightPop {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* ─── COST TAG ─── */
+  .cost-tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .cost-coins { color: var(--accent); font-weight: 700; font-family: 'Orbitron', monospace; font-size: 11px; }
+  .cost-pp { color: var(--accent3); font-weight: 700; font-family: 'Orbitron', monospace; font-size: 11px; }
+
+  /* ─── CONFIG PANEL ─── */
+  .config-btn {
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s;
+  }
   .config-btn:hover { border-colorvar(--text-muted);
     width: 32px;
     text-align: center;
