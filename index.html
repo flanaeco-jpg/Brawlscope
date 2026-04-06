@@ -1700,7 +1700,7 @@ async function fetchPlayer() {
   let data = null;
 
   try {
-    const res = await fetch(`https://brawl-proxy.flanaeco.workers.dev/?tag=${encodedTag}`);
+   const res = await fetch(`https://brawl-proxy.flanaeco.workers.dev/?tag=${encodedTag}`);
     if (res.status === 404) {
       showStatus(t('errNotFound'), 'error');
       showLoader(false);
