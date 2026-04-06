@@ -860,27 +860,6 @@
   .cost-coins { color: var(--accent); font-weight: 700; font-family: 'Orbitron', monospace; font-size: 11px; }
   .cost-pp { color: var(--accent3); font-weight: 700; font-family: 'Orbitron', monospace; font-size: 11px; }
 
-  /* ─── HYPERCHARGE GLOW ─── */
-  .hc-glow {
-    box-shadow: 0 0 20px rgba(168,85,247,0.3), inset 0 0 20px rgba(168,85,247,0.05);
-    border-color: rgba(168,85,247,0.4) !important;
-  }
-
-  /* ─── REFRESH BTN ─── */
-  .refresh-btn {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--accent3);
-    padding: 4px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 12px;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    transition: all 0.2s;
-  }
-  .refresh-btn:hover { border-color: var(--accent3); background: rgba(0,212,255,0.08); }
-
   /* ─── CONFIG PANEL ─── */
   .config-btn {
     padding: 5px 12px;
@@ -1325,27 +1304,6 @@
   .cost-coins { color: var(--accent); font-weight: 700; font-family: 'Orbitron', monospace; font-size: 11px; }
   .cost-pp { color: var(--accent3); font-weight: 700; font-family: 'Orbitron', monospace; font-size: 11px; }
 
-  /* ─── HYPERCHARGE GLOW ─── */
-  .hc-glow {
-    box-shadow: 0 0 20px rgba(168,85,247,0.3), inset 0 0 20px rgba(168,85,247,0.05);
-    border-color: rgba(168,85,247,0.4) !important;
-  }
-
-  /* ─── REFRESH BTN ─── */
-  .refresh-btn {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--accent3);
-    padding: 4px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 12px;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    transition: all 0.2s;
-  }
-  .refresh-btn:hover { border-color: var(--accent3); background: rgba(0,212,255,0.08); }
-
   /* ─── CONFIG PANEL ─── */
   .config-btn {
     padding: 5px 12px;
@@ -1620,14 +1578,14 @@
 
 <footer>
   <div>BRAWL SCOPE — Not affiliated with Supercell. Images © Brawlify CDN / Supercell Fan Content Policy.</div>
-  <div style="margin-top:6px; color:var(--text-muted);">Powered by Brawl Stars Official API + Groq AI · Données mises à jour toutes les 5 min</div>
-  <div style="margin-top:12px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+  <div style="margin-top:6px; color:var(--text-muted);">Powered by Brawl Stars Official API + Groq AI</div>
+  <div style="margin-top:12px;">
     <a href="https://youtube.com/@flaneox?si=bQLZWBoI4q6HcL36" target="_blank" rel="noopener"
-       style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:linear-gradient(135deg,#ff0000,#cc0000);border-radius:20px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:700;letter-spacing:1px;text-decoration:none;box-shadow:0 4px 15px rgba(255,0,0,0.3);transition:all 0.2s;"
-       onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 25px rgba(255,0,0,0.5)'"
-       onmouseout="this.style.transform='none';this.style.boxShadow='0 4px 15px rgba(255,0,0,0.3)'">
+       style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:linear-gradient(135deg,#ff0000,#cc0000);border-radius:20px;color:#fff;font-family:Orbitron,monospace;font-size:12px;font-weight:700;letter-spacing:1px;text-decoration:none;box-shadow:0 4px 15px rgba(255,0,0,0.3);"
+       onmouseover="this.style.transform=translateY(-2px)"
+       onmouseout="this.style.transform=none">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-      CHAÎNE YOUTUBE — FLANEOX
+      CHAINE YOUTUBE — FLANEOX
     </a>
   </div>
 </footer>
@@ -1669,19 +1627,18 @@ const TRANSLATIONS = {
     gadgets: "Gadgets",
     clickForAI: "Clique pour l'analyse IA",
     score: "Score",
-    aiPrompt: (name, tier, power, trophies, sps, gadgets, lang, hasHC) =>
-      `Tu es un expert Brawl Stars de haut niveau. Analyse le brawler "${name}" pour ce joueur : niveau ${power}/11, ${trophies} trophées, ${sps} star power(s), ${gadgets} gadget(s), Tier ${tier} méta Avril 2026.${hasHC ? ` Ce brawler A UNE HYPERCHARGE DISPONIBLE — mention-le dans ton analyse.` : ''}
+    aiPrompt: (name, tier, power, trophies, sps, gadgets, lang) =>
+      `Tu es un expert Brawl Stars. Analyse le brawler "${name}" pour un joueur qui l'a au niveau ${power} avec ${trophies} trophées. Il possède ${sps} star power(s) et ${gadgets} gadget(s). Le brawler est tier ${tier} dans la méta d'Avril 2026.
       
-Réponds en français avec ces sections (sans markdown, texte brut) :
-⚡ FORCES : (2-3 points forts clés)
-⚠️ FAIBLESSES : (1-2 faiblesses importantes)
-🗺️ MEILLEURS MODES : (2-3 modes de jeu optimaux)
-👥 COMPO IDÉALE : (2 brawlers synergiques depuis la collection du joueur si possible)
-🔧 BUILD OPTIMAL : (star power prioritaire + gadget recommandé + gears si pertinent)${hasHC ? `
-⚡ HYPERCHARGE : (conseil précis sur quand et comment maximiser l'Hypercharge)` : ''}
-📈 VERDICT : (1 phrase percutante sur la priorité d'investissement)
+Réponds en ${lang === 'fr' ? 'français' : lang === 'es' ? 'espagnol' : 'anglais'} avec ces sections (sans markdown, texte brut) :
+⚡ FORCES : (2-3 points forts du brawler)
+⚠️ FAIBLESSES : (1-2 faiblesses)
+🗺️ MEILLEURS MODES : (liste les 2-3 meilleurs modes de jeu)
+👥 COMPO IDÉALE : (2 brawlers qui se combinent bien avec lui)
+🔧 QUOI UPGRADER EN PREMIER : (conseil précis sur star power, gadget ou niveau)
+📈 VERDICT : (1 phrase synthèse sur la priorité d'upgrade)
 
-Sois précis, concis, expert.`,
+Sois concis et précis.`,
   },
   en: {
     tagline: "Smart Upgrade Advisor",
@@ -1715,19 +1672,18 @@ Sois précis, concis, expert.`,
     gadgets: "Gadgets",
     clickForAI: "Click for AI analysis",
     score: "Score",
-    aiPrompt: (name, tier, power, trophies, sps, gadgets, lang, hasHC) =>
-      `You are a top-level Brawl Stars expert. Analyze "${name}": power level ${power}/11, ${trophies} trophies, ${sps} star power(s), ${gadgets} gadget(s), Tier ${tier} April 2026 meta.${hasHC ? ` This brawler HAS A HYPERCHARGE available — mention it.` : ''}
-
-Reply in English (no markdown, plain text):
+    aiPrompt: (name, tier, power, trophies, sps, gadgets, lang) =>
+      `You are a Brawl Stars expert. Analyze the brawler "${name}" for a player who has it at power level ${power} with ${trophies} trophies. They own ${sps} star power(s) and ${gadgets} gadget(s). The brawler is tier ${tier} in the April 2026 meta.
+      
+Reply in English with these sections (no markdown, plain text):
 ⚡ STRENGTHS: (2-3 key strengths)
 ⚠️ WEAKNESSES: (1-2 weaknesses)
-🗺️ BEST MODES: (2-3 optimal game modes)
-👥 IDEAL COMP: (2 synergistic brawlers)
-🔧 OPTIMAL BUILD: (best star power + gadget + gears)${hasHC ? `
-⚡ HYPERCHARGE: (when and how to maximize the Hypercharge)` : ''}
-📈 VERDICT: (1 sharp sentence on investment priority)
+🗺️ BEST MODES: (list 2-3 best game modes)
+👥 IDEAL COMP: (2 brawlers that synergize well)
+🔧 UPGRADE FIRST: (precise advice on which star power, gadget or level to get first)
+📈 VERDICT: (1 sentence summary on upgrade priority)
 
-Be precise, concise, expert.`,
+Be concise and precise.`,
   },
   es: {
     tagline: "Asesor inteligente de mejoras",
@@ -1761,19 +1717,18 @@ Be precise, concise, expert.`,
     gadgets: "Gadgets",
     clickForAI: "Clic para análisis IA",
     score: "Puntuación",
-    aiPrompt: (name, tier, power, trophies, sps, gadgets, lang, hasHC) =>
-      `Eres un experto de alto nivel en Brawl Stars. Analiza "${name}": nivel ${power}/11, ${trophies} trofeos, ${sps} star power(s), ${gadgets} gadget(s), Tier ${tier} meta Abril 2026.${hasHC ? ` Este brawler TIENE HYPERCHARGE disponible — mencionarlo.` : ''}
+    aiPrompt: (name, tier, power, trophies, sps, gadgets, lang) =>
+      `Eres un experto en Brawl Stars. Analiza el brawler "${name}" para un jugador que lo tiene en nivel ${power} con ${trophies} trofeos. Posee ${sps} star power(s) y ${gadgets} gadget(s). El brawler es tier ${tier} en la meta de Abril 2026.
+      
+Responde en español con estas secciones (sin markdown, texto plano):
+⚡ FORTALEZAS: (2-3 puntos fuertes)
+⚠️ DEBILIDADES: (1-2 debilidades)
+🗺️ MEJORES MODOS: (lista 2-3 mejores modos de juego)
+👥 COMP IDEAL: (2 brawlers que combinan bien)
+🔧 QUÉ MEJORAR PRIMERO: (consejo preciso sobre qué star power, gadget o nivel priorizar)
+📈 VEREDICTO: (1 frase resumen sobre la prioridad de mejora)
 
-Responde en español (sin markdown, texto plano):
-⚡ FORTALEZAS: (2-3 puntos fuertes clave)
-⚠️ DEBILIDADES: (1-2 debilidades importantes)
-🗺️ MEJORES MODOS: (2-3 modos de juego óptimos)
-👥 COMP IDEAL: (2 brawlers sinérgicos)
-🔧 BUILD ÓPTIMO: (mejor star power + gadget + gears)${hasHC ? `
-⚡ HYPERCHARGE: (cuándo y cómo maximizar el Hypercharge)` : ''}
-📈 VEREDICTO: (1 frase contundente sobre prioridad de inversión)
-
-Sé preciso, conciso, experto.`,
+Sé conciso y preciso.`,
   }
 };
 
@@ -1781,25 +1736,12 @@ Sé preciso, conciso, experto.`,
 //  META TIER LIST — Avril 2026
 // ══════════════════════════════════════
 const META_TIERS = {
-  S: ['MELODIE', 'MICO', 'LILY', 'KIT', 'ANGELO', 'CHUCK', 'LARRY & LAWRIE', 'DRACO', 'KENJI', 'SHADE', 'CLANCY', 'BERRY'],
-  A: ['BIBI', 'LEON', 'AMBER', 'GENE', 'MORTIS', 'SANDY', 'CROW', 'FRANK', 'BUZZ', 'BROCK', 'SURGE', 'BELLE', 'COLETTE', 'GRIFF', 'MANDY', 'JANET', 'SAM', 'LOU', 'GRAY', 'DOUG', 'PEARL', 'MAISIE', 'FANG', 'JUJU', 'WILLOW', 'CORDELIUS', 'CHARLIE'],
-  B: ['SHELLY', 'COLT', 'NITA', 'BULL', 'BARLEY', 'POCO', 'RICO', 'DARRYL', 'PENNY', 'CARL', 'JACKY', 'GALE', 'MAX', 'MR. P', 'SPROUT', 'TARA', 'SQUEAK', 'ASH', 'LOLA', 'RUFFS', 'EVE', 'OTIS', 'BONNIE', 'MEG', 'CHESTER', 'STU', 'EMZ'],
-  C: ['JESSIE', 'DYNAMIKE', 'BOW', 'TICK', 'EL PRIMO', 'ROSA', 'PIPER', 'PAM', '8-BIT', 'GROM', 'BUSTER', 'HANK', 'WATTSON'],
-  D: ['SPIKE', 'LARRY']
+  S: ['MELODIE', 'MICO', 'LILY', 'KIT', 'ANGELO', 'CHUCK', 'LARRY & LAWRIE', 'DRACO', 'KENJI', 'SHADE'],
+  A: ['BIBI', 'LEON', 'AMBER', 'GENE', 'MORTIS', 'SANDY', 'CROW', 'FRANK', 'BUZZ', 'BROCK', 'SURGE', 'BELLE', 'COLETTE', 'GRIFF', 'MANDY', 'JANET', 'SAM', 'LOU', 'GRAY', 'DOUG', 'PEARL', 'MAISIE', 'FANG', 'BERRY', 'CLANCY', 'JUJU', 'WILLOW'],
+  B: ['SHELLY', 'COLT', 'NITA', 'BULL', 'BARLEY', 'POCO', 'RICO', 'DARRYL', 'PENNY', 'CARL', 'JACKY', 'GALE', 'MAX', 'MR. P', 'SPROUT', 'TARA', 'SQUEAK', 'GROMS', 'ASH', 'LOLA', 'RUFFS', 'EVE', 'OTIS', 'BONNIE', 'MEG', 'CHESTER', 'CORDELIUS', 'CHARLIE'],
+  C: ['JESSIE', 'DYNAMIKE', 'BOW', 'TICK', 'EL PRIMO', 'ROSA', 'PIPER', 'PAM', '8-BIT', 'EMZ', 'STU', 'GROM', 'BUSTER', 'GRAY', 'HANK', 'WATTSON', 'LARRY'],
+  D: ['SPIKE', 'CROW', 'LEON', 'SANDY', 'AMBER', 'SURGE']
 };
-
-// Brawlers avec Hypercharge disponible (à prioriser si pas encore max)
-const HYPERCHARGE_BRAWLERS = new Set([
-  'SHELLY','COLT','BULL','BROCK','EL PRIMO','BARLEY','POCO','ROSA','JESSIE','DYNAMIKE',
-  'TICK','8-BIT','RICO','DARRYL','PENNY','CARL','JACKY','PIPER','PAM','FRANK','BIBI',
-  'BOW','TICK','MR. P','SPROUT','SANDY','AMBER','SURGE','COLETTE','BELLE','EDGAR',
-  'GRIFF','GROM','BONNIE','OTIS','SAM','MANDY','MAISIE','HANK','PEARL','JANET',
-  'ANGELO','CORDELIUS','CHARLIE','MELODIE','LILY','JUJU','MICO','KIT','FANG',
-  'BUZZ','LEON','GENE','MORTIS','TARA','MAX','CROW','SQUEAK','LOLA','RUFFS',
-  'EVE','ASH','CHESTER','EMZ','STU','WILLOW','GRAY','CLANCY','BERRY','DOUG',
-  'BUSTER','KENJI','SHADE','DRACO','LARRY & LAWRIE','WATTSON','MEG','NITA',
-  'SPIKE','GALE','DARRYL','JANET','BELLE','SURGE','GRIFF','BELLE'
-]);
 
 // Upgrade cost table (coins per level: 9→10, 8→9, etc.)
 const UPGRADE_COSTS = {
@@ -1891,7 +1833,7 @@ function getTierScore(tier) {
 }
 
 // ══════════════════════════════════════
-//  PRIORITY SCORE (ROI Algorithm)
+//  PRIORITY SCORE
 // ══════════════════════════════════════
 function computePriorityScore(brawler) {
   const tier = getBrawlerTier(brawler.name);
@@ -1899,44 +1841,7 @@ function computePriorityScore(brawler) {
   const levelGap = (11 - brawler.power) * 8;
   const missingStars = (2 - (brawler.starPowers ? brawler.starPowers.length : 0)) * 10;
   const missingGadgets = (2 - (brawler.gadgets ? brawler.gadgets.length : 0)) * 8;
-  
-  // Bonus Hypercharge : brawler a HC disponible mais pas encore max → priorité haute
-  const hasHC = HYPERCHARGE_BRAWLERS.has(brawler.name.toUpperCase());
-  const hcBonus = hasHC && brawler.power < 11 ? 35 : 0;
-  
-  // Quick Win : brawler proche du max (power 9-10) ET tier S/A
-  const quickWin = (brawler.power >= 9 && (tier === 'S' || tier === 'A')) ? 20 : 0;
-  
-  return tierScore + levelGap + missingStars + missingGadgets + hcBonus + quickWin;
-}
-
-function isQuickWin(brawler) {
-  const tier = getBrawlerTier(brawler.name);
-  return brawler.power >= 9 && (tier === 'S' || tier === 'A');
-}
-
-function hasHypercharge(brawler) {
-  return HYPERCHARGE_BRAWLERS.has(brawler.name.toUpperCase());
-}
-
-// ══════════════════════════════════════
-//  CACHE (localStorage 24h pour méta)
-// ══════════════════════════════════════
-const CACHE_KEY = 'brawlscope_player_';
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-
-function getCached(tag) {
-  try {
-    const raw = localStorage.getItem(CACHE_KEY + tag);
-    if (!raw) return null;
-    const { data, ts } = JSON.parse(raw);
-    if (Date.now() - ts > CACHE_TTL) { localStorage.removeItem(CACHE_KEY + tag); return null; }
-    return data;
-  } catch { return null; }
-}
-
-function setCache(tag, data) {
-  try { localStorage.setItem(CACHE_KEY + tag, JSON.stringify({ data, ts: Date.now() })); } catch {}
+  return tierScore + levelGap + missingStars + missingGadgets;
 }
 
 // ══════════════════════════════════════
@@ -1944,25 +1849,13 @@ function setCache(tag, data) {
 // ══════════════════════════════════════
 const API_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjAzOWYyOGQ5LWFiY2EtNGY5YS05MjMzLTk4Y2IwZTZiZGQxMyIsImlhdCI6MTc3NTQwMDM0Miwic3ViIjoiZGV2ZWxvcGVyLzA5ZjQzNzk4LWE2NTAtNjBlZC01ZDg4LWE0OTJhODIyOGU2MSIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiMC4wLjAuMCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.TYkwxAQx-VZcyp3pg6bo_wId45jRbiitHickr4QItyBMdCVR44z2IpBnfHIioIC_j9GuphkOwxYOrgZ40Y3qmA';
 
-async function fetchPlayer(forceRefresh = false) {
+async function fetchPlayer() {
   let tag = document.getElementById('tagInput').value.trim().toUpperCase();
   if (!tag) { showStatus(t('errNoTag'), 'error'); return; }
   if (!tag.startsWith('#')) tag = '#' + tag;
   const encodedTag = encodeURIComponent(tag);
 
   localStorage.setItem('saved_tag', tag);
-
-  // Vérifier le cache (sauf si rafraîchissement forcé)
-  if (!forceRefresh) {
-    const cached = getCached(tag);
-    if (cached) {
-      playerData = cached;
-      renderDashboard(cached);
-      showStatus('✅ Données depuis le cache. <button onclick="fetchPlayer(true)" style="background:none;border:none;color:var(--accent3);cursor:pointer;text-decoration:underline;font-size:13px;font-weight:700">Actualiser</button>', 'info');
-      document.getElementById('statusMsg').style.display = 'block';
-      return;
-    }
-  }
 
   showLoader(true);
   hideStatus();
@@ -1971,17 +1864,14 @@ async function fetchPlayer(forceRefresh = false) {
   let data = null;
 
   try {
-    const res = await fetch(`/.netlify/functions/Proxy?tag=${encodedTag}`);
+    const res = await fetch(`https://brawlscope.onrender.com/?tag=${encodedTag}`);
     if (res.status === 404) {
       showStatus(t('errNotFound'), 'error');
       showLoader(false);
       document.getElementById('searchBtn').disabled = false;
       return;
     }
-    if (res.ok) {
-      data = await res.json();
-      if (data && data.tag) setCache(tag, data);
-    }
+    data = await res.json();
   } catch (e) {
     data = null;
   }
@@ -2068,54 +1958,22 @@ function renderPriorities(brawlers) {
 
   document.getElementById('priorityCount').textContent = `${sorted.length} brawlers`;
 
-  // Quick Win highlight
-  const quickWinBrawler = sorted.find(b => isQuickWin(b));
-
   const grid = document.getElementById('priorityGrid');
-  
-  // Budget total
-  const totalCoins = sorted.slice(0,5).reduce((s,b) => s + getCostToMax(b.power).coins, 0);
-  const totalPP = sorted.slice(0,5).reduce((s,b) => s + getCostToMax(b.power).pp, 0);
-  
-  let budgetHTML = `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:14px;display:flex;gap:20px;flex-wrap:wrap;align-items:center;">
-    <span style="font-size:12px;color:var(--text-muted);font-family:'Inter',sans-serif">💰 Budget TOP 5 :</span>
-    <span style="font-family:'Orbitron',monospace;font-size:13px;color:var(--accent);font-weight:700">${totalCoins.toLocaleString()} pièces</span>
-    <span style="font-family:'Orbitron',monospace;font-size:13px;color:var(--accent3);font-weight:700">${totalPP.toLocaleString()} PP</span>
-  </div>`;
-  
-  if (quickWinBrawler) {
-    budgetHTML += `<div style="background:linear-gradient(135deg,rgba(255,71,87,0.1),rgba(247,201,72,0.05));border:1px solid rgba(255,71,87,0.3);border-radius:10px;padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
-      <span style="font-size:18px">⚡</span>
-      <div>
-        <div style="font-family:'Orbitron',monospace;font-size:11px;color:var(--tier-s);letter-spacing:1px;margin-bottom:2px">QUICK WIN</div>
-        <div style="font-size:13px;color:var(--text);font-family:'Inter',sans-serif"><b style="color:var(--accent)">${quickWinBrawler.name}</b> est à 2 niveaux du max — investissement optimal !</div>
-      </div>
-    </div>`;
-  }
-
-  grid.innerHTML = budgetHTML + sorted.map((b, i) => {
+  grid.innerHTML = sorted.map((b, i) => {
     const cost = getCostToMax(b.power);
     const sps = b.starPowers?.length || 0;
     const gads = b.gadgets?.length || 0;
-    const hc = hasHypercharge(b);
-    const qw = isQuickWin(b);
-    const badges = [];
-    if (hc) badges.push(`<span style="background:linear-gradient(135deg,#a855f7,#7c3aed);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;font-family:'Orbitron',monospace;letter-spacing:0.5px">HC</span>`);
-    if (qw) badges.push(`<span style="background:linear-gradient(135deg,#f7c948,#ff6b35);color:#000;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;font-family:'Orbitron',monospace;letter-spacing:0.5px">QUICK WIN</span>`);
     return `
-      <div class="priority-item tier-${b.tier}${hc ? ' hc-glow' : ''}" onclick="openModal(${JSON.stringify(b).replace(/"/g,'&quot;')})">
+      <div class="priority-item tier-${b.tier}" onclick="openModal(${JSON.stringify(b).replace(/"/g,'&quot;')})">
         <div class="priority-rank">${i + 1}</div>
         <img class="brawler-img-small" src="${getBrawlerImg(b.id)}" alt="${b.name}" onerror="this.src='https://cdn.brawlify.com/brawlers/borders/16000000.png'">
         <div class="priority-info">
-          <div class="priority-name" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-            ${b.name}
-            ${badges.join('')}
-          </div>
+          <div class="priority-name">${b.name}</div>
           <div class="priority-details">
-            <span>⚡ PWR ${b.power}/11</span>
-            <span>⭐ ${sps}/2 SP</span>
-            <span>🔧 ${gads}/2 GAD</span>
-            <span class="cost-tag">💰 <span class="cost-coins">${cost.coins.toLocaleString()}</span> · <span style="color:#00d4ff;font-weight:700">PP</span> <span class="cost-pp">${cost.pp.toLocaleString()}</span></span>
+            <span><img src="https://cdn.brawlify.com/star-powers/23000076.png" onerror="this.style.display='none'" style="width:13px;height:13px;vertical-align:middle;margin-right:2px">PWR ${b.power}/11</span>
+            <span><img src="https://cdn.brawlify.com/star-powers/23000076.png" onerror="this.style.display='none'" style="width:13px;height:13px;vertical-align:middle;margin-right:2px">★ ${sps}/2 SP</span>
+            <span><img src="https://cdn.brawlify.com/gadgets/23000255.png" onerror="this.style.display='none'" style="width:13px;height:13px;vertical-align:middle;margin-right:2px">${gads}/2 GAD</span>
+            <span class="cost-tag"><span style="color:#f7c948;font-weight:700">¢</span> <span class="cost-coins">${cost.coins.toLocaleString()}</span> · <span style="color:#00d4ff;font-weight:700">PP</span> <span class="cost-pp">${cost.pp.toLocaleString()}</span></span>
           </div>
         </div>
         <span class="tier-badge tier-${b.tier}">${b.tier}</span>
@@ -2126,57 +1984,25 @@ function renderPriorities(brawlers) {
   }).join('');
 }
 
-let brawlerFilter = 'all';
-
 function renderBrawlers(brawlers) {
   if (!brawlers?.length) return;
 
   const sorted = [...brawlers].sort((a, b) => b.trophies - a.trophies);
-  const maxed = sorted.filter(b => b.power === 11).length;
-  const pct11 = Math.round((maxed / sorted.length) * 100);
-  
   document.getElementById('brawlerCount').textContent = `${sorted.length} brawlers`;
 
-  // Barre de progression globale
-  const progressHTML = `
-    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:16px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-        <span style="font-size:12px;color:var(--text-muted);font-family:'Inter',sans-serif">Progression du compte</span>
-        <span style="font-family:'Orbitron',monospace;font-size:13px;color:var(--accent);font-weight:700">${maxed}/${sorted.length} maxés</span>
-      </div>
-      <div style="height:6px;background:var(--surface3);border-radius:3px;overflow:hidden;">
-        <div style="height:100%;width:${pct11}%;background:linear-gradient(90deg,var(--accent3),var(--accent));border-radius:3px;transition:width 0.8s ease;"></div>
-      </div>
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
-      <button onclick="setBrawlerFilter('all')" class="filter-btn ${brawlerFilter==='all'?'active':''}" style="padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:${brawlerFilter==='all'?'rgba(247,201,72,0.15)':'transparent'};color:${brawlerFilter==='all'?'var(--accent)':'var(--text-muted)'};cursor:pointer;font-size:12px;font-weight:700;font-family:'Rajdhani',sans-serif">Tous</button>
-      <button onclick="setBrawlerFilter('hc')" class="filter-btn" style="padding:5px 12px;border-radius:20px;border:1px solid ${brawlerFilter==='hc'?'rgba(168,85,247,0.5)':'var(--border)'};background:${brawlerFilter==='hc'?'rgba(168,85,247,0.15)':'transparent'};color:${brawlerFilter==='hc'?'#a855f7':'var(--text-muted)'};cursor:pointer;font-size:12px;font-weight:700;font-family:'Rajdhani',sans-serif">⚡ Hypercharge</button>
-      <button onclick="setBrawlerFilter('missing_sp')" class="filter-btn" style="padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:${brawlerFilter==='missing_sp'?'rgba(0,212,255,0.15)':'transparent'};color:${brawlerFilter==='missing_sp'?'var(--accent3)':'var(--text-muted)'};cursor:pointer;font-size:12px;font-weight:700;font-family:'Rajdhani',sans-serif">⭐ Manque SP</button>
-      <button onclick="setBrawlerFilter('priority')" class="filter-btn" style="padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:${brawlerFilter==='priority'?'rgba(255,71,87,0.15)':'transparent'};color:${brawlerFilter==='priority'?'var(--tier-s)':'var(--text-muted)'};cursor:pointer;font-size:12px;font-weight:700;font-family:'Rajdhani',sans-serif">🎯 À prioriser</button>
-    </div>`;
-
-  let filtered = sorted;
-  if (brawlerFilter === 'hc') filtered = sorted.filter(b => hasHypercharge(b) && b.power < 11);
-  if (brawlerFilter === 'missing_sp') filtered = sorted.filter(b => (b.starPowers?.length || 0) < 2);
-  if (brawlerFilter === 'priority') filtered = sorted.filter(b => { const tier = getBrawlerTier(b.name); return (tier === 'S' || tier === 'A') && b.power < 11; });
-
   const grid = document.getElementById('brawlerGrid');
-  grid.innerHTML = progressHTML + filtered.map(b => {
+  grid.innerHTML = sorted.map(b => {
     const tier = getBrawlerTier(b.name);
     const sps = b.starPowers?.length || 0;
     const gads = b.gadgets?.length || 0;
     const pct = ((b.power - 1) / 10) * 100;
-    const hc = hasHypercharge(b);
-    const isMax = b.power === 11;
     return `
-      <div class="brawler-card tier-${tier}" onclick="openModal(${JSON.stringify(b).replace(/"/g,'&quot;')})" style="${isMax ? 'border-color:rgba(247,201,72,0.4);' : ''}">
+      <div class="brawler-card tier-${tier}" onclick="openModal(${JSON.stringify(b).replace(/"/g,'&quot;')})">
         <span class="tier-badge tier-${tier}" style="position:absolute;top:8px;right:8px;font-size:10px;padding:2px 6px">${tier}</span>
-        ${hc && !isMax ? `<span style="position:absolute;top:8px;left:8px;background:linear-gradient(135deg,#a855f7,#7c3aed);color:white;font-size:9px;font-weight:700;padding:2px 5px;border-radius:4px;font-family:'Orbitron',monospace">HC</span>` : ''}
-        ${isMax ? `<span style="position:absolute;top:8px;left:8px;background:linear-gradient(135deg,#f7c948,#ff6b35);color:#000;font-size:9px;font-weight:700;padding:2px 5px;border-radius:4px;font-family:'Orbitron',monospace">MAX</span>` : ''}
         <img class="brawler-card-img" src="${getBrawlerImg(b.id)}" alt="${b.name}" onerror="this.src='https://cdn.brawlify.com/brawlers/borders/16000000.png'">
         <div class="brawler-card-name">${b.name}</div>
-        <div class="power-bar"><div class="power-fill" style="width:${pct}%;${isMax ? 'background:linear-gradient(90deg,#f7c948,#ff6b35)' : ''}"></div></div>
-        <div class="power-level-badge" style="${isMax ? 'color:var(--accent2)' : ''}">PWR ${b.power}</div>
+        <div class="power-bar"><div class="power-fill" style="width:${pct}%"></div></div>
+        <div class="power-level-badge">PWR ${b.power}</div>
         <div class="card-icons" style="margin-top:6px">
           <div class="icon-dot ${sps >= 1 ? 'owned' : ''}" title="SP1"></div>
           <div class="icon-dot ${sps >= 2 ? 'owned' : ''}" title="SP2"></div>
@@ -2186,11 +2012,6 @@ function renderBrawlers(brawlers) {
         </div>
       </div>`;
   }).join('');
-}
-
-function setBrawlerFilter(filter) {
-  brawlerFilter = filter;
-  if (playerData) renderBrawlers(playerData.brawlers);
 }
 
 function renderMeta(ownedBrawlers) {
@@ -2236,8 +2057,7 @@ async function openModal(brawler) {
   document.getElementById('modalTitle').textContent = brawler.name;
   document.getElementById('modalTier').textContent = `TIER ${tier}`;
   document.getElementById('modalTier').className = `tier-badge tier-${tier}`;
-  const hcBadge = hasHypercharge(brawler) ? `<span style="background:linear-gradient(135deg,#a855f7,#7c3aed);color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;font-family:'Orbitron',monospace;margin-left:8px">⚡ HC</span>` : '';
-  document.getElementById('modalLevel').innerHTML = `PWR ${brawler.power}/11 · ${brawler.trophies.toLocaleString()} 🏆${hcBadge}`;
+  document.getElementById('modalLevel').textContent = `PWR ${brawler.power}/11 · ${brawler.trophies.toLocaleString()} 🏆`;
 
   document.getElementById('aiResponse').innerHTML = `
     <div class="ai-loading">
@@ -2252,9 +2072,8 @@ async function openModal(brawler) {
   const DEFAULT_KEY = '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';
   const claudeKey = localStorage.getItem('groq_api_key') || DEFAULT_KEY;
 
-  const hcAvailable = hasHypercharge(brawler);
   const prompt = TRANSLATIONS[currentLang].aiPrompt(
-    brawler.name, tier, brawler.power, brawler.trophies, sps, gads, currentLang, hcAvailable
+    brawler.name, tier, brawler.power, brawler.trophies, sps, gads, currentLang
   );
 
   try {
