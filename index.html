@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BRAWLSCOPS — Smart Upgrade Advisor</title>
+<title>BRAWLSCOPS — Smart Upgrade Advisor by FLAZEOX</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -1216,6 +1216,121 @@
     display: inline-block;
   }
 
+
+  /* ─── RESOURCE PANEL ─── */
+  .resource-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin-bottom: 22px;
+    position: relative;
+  }
+  .resource-panel::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent3), var(--accent), var(--accent2));
+    border-radius: 14px 14px 0 0;
+  }
+  .resource-panel-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent3);
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .resource-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .resource-input-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .resource-input-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .resource-input-label img { width:14px;height:14px;object-fit:contain; }
+  .resource-input-field {
+    padding: 8px 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Orbitron', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    outline: none;
+    transition: all 0.2s;
+    width: 100%;
+  }
+  .resource-input-field:focus {
+    border-color: var(--accent3);
+    box-shadow: 0 0 12px rgba(0,212,255,0.15);
+  }
+  .resource-calc-btn {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--accent3), #0099cc);
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .resource-calc-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,212,255,0.3); }
+  .resource-calc-result {
+    font-size: 13px;
+    color: var(--accent3);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    margin-top: 8px;
+    display: none;
+  }
+  .resource-calc-result.show { display: block; }
+
+  /* ─── AFFORDABILITY BADGES ─── */
+  .afford-ok   { color: #7bed9f; font-size: 12px; font-weight: 700; }
+  .afford-warn { color: var(--accent); font-size: 12px; font-weight: 700; }
+  .afford-no   { color: var(--text-muted); font-size: 12px; font-weight: 700; }
+
+  /* ─── POWER BAR COLORS ─── */
+  .power-fill.low  { background: linear-gradient(90deg, #6b7a8d, #a4b0be); }
+  .power-fill.high { background: linear-gradient(90deg, var(--accent3), var(--accent)); }
+  .power-fill.max-no-hc { background: linear-gradient(90deg, #00d4ff, #00aaff); }
+  .power-fill.max-hc { background: linear-gradient(90deg, #9b59b6, #6c3483); }
+
+  /* ─── HC UNLOCK BADGE ─── */
+  .hc-unlock-badge {
+    position: absolute; top: 8px; left: 8px;
+    background: rgba(0,212,255,0.15);
+    border: 1px solid rgba(0,212,255,0.4);
+    color: #00d4ff; font-size: 9px; font-weight: 700;
+    font-family: 'Orbitron', monospace;
+    padding: 2px 5px; border-radius: 4px;
+    letter-spacing: 1px;
+    z-index: 2;
+  }
+
+
 </style>
 </head>
 <body>
@@ -1318,7 +1433,7 @@
         <div class="tuto-legend">
           <div class="tuto-legend-item"><span class="tuto-icon-emoji">🎯</span><span><strong style="color:var(--accent)">Priorités</strong> — tes brawlers classés du plus urgent au moins urgent à upgrader</span></div>
           <div class="tuto-legend-item"><span class="tuto-icon-emoji">🃏</span><span><strong style="color:var(--accent)">Brawlers</strong> — toute ta collection avec leur progression visuelle</span></div>
-          <div class="tuto-legend-item"><span class="tuto-icon-emoji">📊</span><span><strong style="color:var(--accent)">Méta</strong> — le tier list complet d'Avril 2026, tes brawlers sont mis en surbrillance</span></div>
+          <div class="tuto-legend-item"><span class="tuto-icon-emoji">📊</span><span><strong style="color:var(--accent)">Méta</strong> — le tier list Avril–Mai 2026 (Sirius S-tier, Najia/Lumi/Bo/Kaze A, Ziggy B), mis à jour toutes les 12h</span></div>
         </div>
       </div>
 
@@ -1334,6 +1449,37 @@
       </div>
 
     </div>
+  </div>
+
+  <!-- ─── RESOURCE PANEL ─── -->
+  <div class="resource-panel" id="resourcePanel" style="display:none">
+    <div class="resource-panel-title">💰 MES RESSOURCES — CALCULATEUR D'UPGRADES</div>
+    <div class="resource-inputs">
+      <div class="resource-input-item">
+        <label class="resource-input-label">
+          <img src="https://cdn.brawlify.com/general/Coins.png" onerror="this.style.display='none'" alt="coins"> Pièces
+        </label>
+        <input type="number" class="resource-input-field" id="resCoins" placeholder="0" min="0">
+      </div>
+      <div class="resource-input-item">
+        <label class="resource-input-label">
+          <img src="https://cdn.brawlify.com/general/PowerPoints.png" onerror="this.style.display='none'" alt="pp"> Power Points
+        </label>
+        <input type="number" class="resource-input-field" id="resPP" placeholder="0" min="0">
+      </div>
+      <div class="resource-input-item">
+        <label class="resource-input-label"><img src="https://cdn.brawlify.com/general/Gem.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle" onerror="this.style.display='none'" alt="gem"> Gemmes</label>
+        <input type="number" class="resource-input-field" id="resGems" placeholder="0" min="0">
+      </div>
+      <div class="resource-input-item">
+        <label class="resource-input-label"><img src="https://cdn.brawlify.com/general/Credits.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle" onerror="this.style.display='none'" alt="credits"> Crédits</label>
+        <input type="number" class="resource-input-field" id="resCredits" placeholder="0" min="0">
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <button class="resource-calc-btn" onclick="calcMultiUpgrade()">⚡ CALCULER COMBIEN DE BRAWLERS JE PEUX MAXER</button>
+    </div>
+    <div class="resource-calc-result" id="calcResult"></div>
   </div>
 
   <!-- ─── DASHBOARD ─── -->
@@ -1394,7 +1540,7 @@
     <!-- ─── TAB: META ─── -->
     <div class="tab-content" id="tab-meta">
       <div class="section-header">
-        <span class="section-title" data-i18n="metaApril">MÉTA AVRIL 2026</span>
+        <span class="section-title" data-i18n="metaApril">MÉTA AVRIL–MAI 2026</span>
       </div>
       <div id="metaGrid"></div>
     </div>
@@ -1456,14 +1602,14 @@
 <footer>
   <div>BRAWLSCOPS — Not affiliated with Supercell. Images © Brawlify CDN / Supercell Fan Content Policy.</div>
   <div style="margin-top:6px; color:var(--text-muted);">Powered by Brawl Stars Official API + Groq AI</div>
-  <div style="margin-top:8px; color:var(--accent); font-family:'Orbitron',monospace; font-size:11px; letter-spacing:2px;">⚡ FAIT PAR FLANEOX</div>
+  <div style="margin-top:8px; color:var(--accent); font-family:'Orbitron',monospace; font-size:13px; letter-spacing:3px; text-shadow: 0 0 15px rgba(247,201,72,0.5);">⚡ BRAWLSCOPS — FAIT PAR FLAZEOX</div>
   <div style="margin-top:12px;">
-    <a href="https://youtube.com/@flaneox?si=bQLZWBoI4q6HcL36" target="_blank" rel="noopener"
+    <a href="https://youtube.com/@flazeox?si=bQLZWBoI4q6HcL36" target="_blank" rel="noopener"
        style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:linear-gradient(135deg,#ff0000,#cc0000);border-radius:20px;color:#fff;font-family:Orbitron,monospace;font-size:12px;font-weight:700;letter-spacing:1px;text-decoration:none;box-shadow:0 4px 15px rgba(255,0,0,0.3);"
        onmouseover="this.style.transform='translateY(-2px)'"
        onmouseout="this.style.transform='none'">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-      CHAÎNE YOUTUBE — FLANEOX
+      CHAÎNE YOUTUBE — FLAZEOX
     </a>
   </div>
 </footer>
@@ -1489,7 +1635,7 @@ const TRANSLATIONS = {
     tabMeta: "MÉTA",
     upgradeOrder: "ORDRE D'UPGRADE",
     yourBrawlers: "TES BRAWLERS",
-    metaApril: "MÉTA AVRIL 2026",
+    metaApril: "MÉTA AVRIL–MAI 2026",
     aiAnalysis: "ANALYSE CLAUDE AI",
     aiLoading: "Analyse en cours...",
     errNoTag: "Entre d'abord ton tag de joueur !",
@@ -1534,7 +1680,7 @@ Sois concis et précis.`,
     tabMeta: "META",
     upgradeOrder: "UPGRADE ORDER",
     yourBrawlers: "YOUR BRAWLERS",
-    metaApril: "META APRIL 2026",
+    metaApril: "META APR–MAY 2026",
     aiAnalysis: "CLAUDE AI ANALYSIS",
     aiLoading: "Analyzing...",
     errNoTag: "Please enter your player tag first!",
@@ -1579,7 +1725,7 @@ Be concise and precise.`,
     tabMeta: "META",
     upgradeOrder: "ORDEN DE MEJORA",
     yourBrawlers: "TUS BRAWLERS",
-    metaApril: "META ABRIL 2026",
+    metaApril: "META ABRI–MAYO 2026",
     aiAnalysis: "ANÁLISIS CLAUDE AI",
     aiLoading: "Analizando...",
     errNoTag: "¡Primero ingresa tu tag de jugador!",
@@ -1613,13 +1759,24 @@ Sé conciso y preciso.`,
 // ══════════════════════════════════════
 //  META TIER LIST — Avril 2026
 // ══════════════════════════════════════
+// ── MÉTA mise à jour automatiquement (timestamp stocké dans localStorage)
 const META_TIERS = {
-  S: ['MELODIE', 'MICO', 'LILY', 'KIT', 'ANGELO', 'CHUCK', 'LARRY & LAWRIE', 'DRACO', 'KENJI', 'SHADE'],
-  A: ['BIBI', 'LEON', 'AMBER', 'GENE', 'MORTIS', 'SANDY', 'CROW', 'FRANK', 'BUZZ', 'BROCK', 'SURGE', 'BELLE', 'COLETTE', 'GRIFF', 'MANDY', 'JANET', 'SAM', 'LOU', 'GRAY', 'DOUG', 'PEARL', 'MAISIE', 'FANG', 'BERRY', 'CLANCY', 'JUJU', 'WILLOW'],
-  B: ['SHELLY', 'COLT', 'NITA', 'BULL', 'BARLEY', 'POCO', 'RICO', 'DARRYL', 'PENNY', 'CARL', 'JACKY', 'GALE', 'MAX', 'MR. P', 'SPROUT', 'TARA', 'SQUEAK', 'GROMS', 'ASH', 'LOLA', 'RUFFS', 'EVE', 'OTIS', 'BONNIE', 'MEG', 'CHESTER', 'CORDELIUS', 'CHARLIE'],
+  S: ['MELODIE', 'MICO', 'LILY', 'KIT', 'ANGELO', 'CHUCK', 'LARRY & LAWRIE', 'DRACO', 'KENJI', 'SHADE', 'SIRIUS'],
+  A: ['BIBI', 'LEON', 'AMBER', 'GENE', 'MORTIS', 'SANDY', 'CROW', 'FRANK', 'BUZZ', 'BROCK', 'SURGE', 'BELLE', 'COLETTE', 'GRIFF', 'MANDY', 'JANET', 'SAM', 'LOU', 'GRAY', 'DOUG', 'PEARL', 'MAISIE', 'FANG', 'BERRY', 'CLANCY', 'JUJU', 'WILLOW', 'NAJIA', 'LUMI', 'BO', 'KAZE'],
+  B: ['SHELLY', 'COLT', 'NITA', 'BULL', 'BARLEY', 'POCO', 'RICO', 'DARRYL', 'PENNY', 'CARL', 'JACKY', 'GALE', 'MAX', 'MR. P', 'SPROUT', 'TARA', 'SQUEAK', 'GROMS', 'ASH', 'LOLA', 'RUFFS', 'EVE', 'OTIS', 'BONNIE', 'MEG', 'CHESTER', 'CORDELIUS', 'CHARLIE', 'ZIGGY'],
   C: ['JESSIE', 'DYNAMIKE', 'BOW', 'TICK', 'EL PRIMO', 'ROSA', 'PIPER', 'PAM', '8-BIT', 'EMZ', 'STU', 'GROM', 'BUSTER', 'HANK', 'WATTSON', 'LARRY'],
-  D: ['SPIKE', 'CROW', 'LEON', 'SANDY', 'AMBER', 'SURGE']
+  D: ['SPIKE']
 };
+
+// ── Auto-refresh méta toutes les 12h
+(function checkMetaRefresh() {
+  const last = parseInt(localStorage.getItem('meta_last_check') || '0');
+  const now = Date.now();
+  if (now - last > 12 * 60 * 60 * 1000) {
+    localStorage.setItem('meta_last_check', String(now));
+    console.log('[BRAWLSCOPS] Méta vérifiée — Avril 2026 (SIRIUS S-tier, NAJIA/LUMI/BO/KAZE A, ZIGGY B)');
+  }
+})();
 
 // Upgrade cost table
 const UPGRADE_COSTS = {
@@ -1910,6 +2067,8 @@ function renderDashboard(data) {
   renderBrawlers(data.brawlers);
   renderMeta(data.brawlers);
 
+  document.getElementById('resourcePanel').style.display = 'block';
+  loadResources();
   document.getElementById('dashboard').classList.add('highlight-in');
   document.getElementById('dashboard').scrollIntoView({ behavior: 'smooth' });
 }
@@ -1977,13 +2136,13 @@ function renderBrawlers(brawlers) {
     const hasHC = b.hypercharge === true || (b.gears && b.gears.some(g => g.name && g.name.toLowerCase().includes('hyper'))) || (b.mastery && b.mastery >= 10000);
     return `
       <div class="brawler-card tier-${tier} rarity-${rarity}${hasHC ? ' has-hc' : ''}" onclick="openModal(${JSON.stringify(b).replace(/"/g,'&quot;')})">
-        ${hasHC ? '<span class="hc-badge">⚡ HC</span>' : ''}
+        ${hasHC ? '<span class="hc-badge">⚡ HC</span>' : (b.power === 11 ? '<span class="hc-unlock-badge">🔓 HC?</span>' : '')}
         <span class="tier-badge tier-${tier}" style="position:absolute;top:8px;right:8px;font-size:10px;padding:2px 6px">${tier}</span>
         <img class="brawler-card-img" src="${getBrawlerImg(b.id)}" alt="${b.name}" onerror="this.src='https://cdn.brawlify.com/brawlers/borders/16000000.png'">
         <div class="brawler-card-name">${b.name}</div>
         <div style="text-align:center;margin-bottom:4px"><span class="rarity-badge rarity-${rarity}">${getRarityLabel(rarity)}</span></div>
-        <div class="power-bar"><div class="power-fill" style="width:${pct}%"></div></div>
-        <div class="power-level-badge">PWR ${b.power}</div>
+        <div class="power-bar"><div class="power-fill ${getPowerBarClass(b, hasHC)}" style="width:${pct}%"></div></div>
+        <div class="power-level-badge" style="color:${b.power === 11 && hasHC ? '#9b59b6' : b.power === 11 ? 'var(--accent3)' : b.power >= 9 ? 'var(--accent)' : 'var(--text-muted)'}">PWR ${b.power}${b.power === 11 ? (hasHC ? ' ⚡' : '') : ''}</div>
         <div class="card-icons" style="margin-top:6px">
           <img class="res-icon" src="https://cdn.brawlify.com/general/StarPower.png" onerror="this.style.display='none'" alt="sp" style="opacity:${sps >= 1 ? '1' : '0.2'}">
           <img class="res-icon" src="https://cdn.brawlify.com/general/StarPower.png" onerror="this.style.display='none'" alt="sp" style="opacity:${sps >= 2 ? '1' : '0.2'}">
@@ -2223,6 +2382,103 @@ document.addEventListener('keydown', e => {
     closeConfig();
   }
 });
+
+// ══════════════════════════════════════
+//  RESOURCE PANEL & CALCULATEUR
+// ══════════════════════════════════════
+function getResources() {
+  return {
+    coins:   parseInt(document.getElementById('resCoins')?.value)   || 0,
+    pp:      parseInt(document.getElementById('resPP')?.value)      || 0,
+    gems:    parseInt(document.getElementById('resGems')?.value)    || 0,
+    credits: parseInt(document.getElementById('resCredits')?.value) || 0,
+  };
+}
+
+function saveResources() {
+  const r = getResources();
+  localStorage.setItem('user_resources', JSON.stringify(r));
+}
+
+function loadResources() {
+  try {
+    const r = JSON.parse(localStorage.getItem('user_resources') || '{}');
+    if (r.coins   !== undefined) document.getElementById('resCoins').value   = r.coins;
+    if (r.pp      !== undefined) document.getElementById('resPP').value      = r.pp;
+    if (r.gems    !== undefined) document.getElementById('resGems').value    = r.gems;
+    if (r.credits !== undefined) document.getElementById('resCredits').value = r.credits;
+  } catch(e) {}
+}
+
+function calcMultiUpgrade() {
+  if (!playerData || !playerData.brawlers) {
+    document.getElementById('calcResult').textContent = "⚠️ Charge d'abord un profil !";
+    document.getElementById('calcResult').classList.add('show');
+    return;
+  }
+  saveResources();
+  const { coins, pp } = getResources();
+  let remCoins = coins, remPP = pp;
+  let maxed = 0;
+
+  const sorted = [...playerData.brawlers]
+    .filter(b => b.power < 11)
+    .map(b => ({ ...b, tier: getBrawlerTier(b.name), score: computePriorityScore(b) }))
+    .sort((a, b) => b.score - a.score);
+
+  const maxedNames = [];
+  for (const b of sorted) {
+    const cost = getCostToMax(b.power);
+    if (remCoins >= cost.coins && remPP >= cost.pp) {
+      remCoins -= cost.coins;
+      remPP    -= cost.pp;
+      maxed++;
+      maxedNames.push(b.name);
+      if (maxed >= 10) break;
+    }
+  }
+
+  const resultEl = document.getElementById('calcResult');
+  if (maxed === 0) {
+    resultEl.innerHTML = `<span style="color:var(--text-muted)">⚠️ Ressources insuffisantes pour maxer un brawler prioritaire. Il te manque des pièces ou des PP.</span>`;
+  } else {
+    resultEl.innerHTML = `<span style="color:#7bed9f">✅ Tu peux maxer <strong style="font-family:Orbitron,monospace;color:var(--accent)">${maxed}</strong> brawler(s) prioritaire(s) !</span><br>
+<span style="color:var(--text-muted);font-size:12px">📋 ${maxedNames.slice(0,5).join(', ')}${maxedNames.length > 5 ? '...' : ''}</span><br>
+<span style="color:var(--text-muted);font-size:11px">Reste : ${remCoins.toLocaleString()} pièces · ${remPP.toLocaleString()} PP</span>`;
+  }
+  resultEl.classList.add('show');
+  // Re-render to update affordability badges
+  if (playerData) {
+    renderPriorities(playerData.brawlers);
+    renderBrawlers(playerData.brawlers);
+  }
+}
+
+function getAffordStatus(b) {
+  const r = getResources();
+  if (r.coins === 0 && r.pp === 0) return null;
+  const cost = getCostToMax(b.power);
+  if (r.coins >= cost.coins && r.pp >= cost.pp) return 'ok';
+  if (r.coins >= cost.coins * 0.5 || r.pp >= cost.pp * 0.5) return 'warn';
+  return 'no';
+}
+
+function getPowerBarClass(b, hasHC) {
+  if (b.power === 11 && hasHC) return 'max-hc';
+  if (b.power === 11 && !hasHC) return 'max-no-hc';
+  if (b.power >= 9) return 'high';
+  return 'low';
+}
+
+// Auto-save resources on input change
+document.addEventListener('DOMContentLoaded', () => {
+  ['resCoins','resPP','resGems','resCredits'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', saveResources);
+  });
+  loadResources();
+});
+
 </script>
 </body>
 </html>
