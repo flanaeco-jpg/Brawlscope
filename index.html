@@ -1432,7 +1432,7 @@
         <button class="lang-btn active" onclick="setLang('fr')">FR</button>
         <button class="lang-btn" onclick="setLang('en')">EN</button>
         <button class="lang-btn" onclick="setLang('es')">ES</button>
-        <button class="config-btn" id="configBtn" onclick="openConfig()" title="Configurer la clé API Claude">⚙️</button>
+        <button class="config-btn" id="configBtn" onclick="openConfig()" title="Configurer la clé API Groq">⚙️</button>
       </div>
     </div>
   </div>
@@ -1533,12 +1533,12 @@
   <div class="config-panel">
     <div class="config-title">⚙️ CONFIGURATION API</div>
     <p class="config-desc">
-      Entre ta clé API Claude pour activer l'analyse IA.<br>
-      Obtiens-la sur <a href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a><br>
+      Entre ta clé API Groq pour activer l'analyse IA.<br>
+      Obtiens-la sur <a href="https://console.groq.com/keys" target="_blank">console.groq.com</a><br>
       <span style="color:#ff6b35;font-size:11px;">⚠️ Clé sauvegardée localement dans ton navigateur.</span>
     </p>
-    <div class="config-label">CLÉ API CLAUDE (sk-ant-...)</div>
-    <input type="password" class="config-input" id="claudeKeyInput" placeholder="sk-ant-api03-..." />
+    <div class="config-label">CLÉ API GROQ (gsk_...)</div>
+    <input type="password" class="config-input" id="claudeKeyInput" placeholder="gsk_..." />
     <div class="config-actions">
       <button class="config-save" onclick="saveConfig()">💾 SAUVEGARDER</button>
       <button class="config-cancel" onclick="closeConfig()">ANNULER</button>
@@ -2060,9 +2060,9 @@ async function openModal(brawler) {
   document.body.style.overflow = 'hidden';
 
   // Call Claude API
-  const claudeKey = localStorage.getItem('claude_api_key') || '';
+  const claudeKey = localStorage.getItem('groq_api_key') || '';
   if (!claudeKey) {
-    document.getElementById('aiResponse').innerHTML = `<span style="color:var(--accent)">⚙️ Configure ta clé API Claude via le bouton <b>⚙️</b> en haut à droite pour activer l'analyse IA.</span>`;
+    document.getElementById('aiResponse').innerHTML = `<span style="color:var(--accent)">⚙️ Configure ta clé API Groq via le bouton <b>⚙️</b> en haut à droite pour activer l'analyse IA.</span>`;
     return;
   }
 
@@ -2071,16 +2071,14 @@ async function openModal(brawler) {
   );
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': claudeKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
+        'Authorization': `Bearer ${claudeKey}`
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'llama-3.3-70b-versatile',
         max_tokens: 1000,
         messages: [{ role: 'user', content: prompt }]
       })
@@ -2091,7 +2089,7 @@ async function openModal(brawler) {
       document.getElementById('aiResponse').innerHTML = `<span style="color:#ff4757">❌ Erreur API : ${data.error.message}</span>`;
       return;
     }
-    const text = data.content?.map(c => c.text || '').join('') || '—';
+    const text = data.choices?.[0]?.message?.content || '—';
     document.getElementById('aiResponse').textContent = text;
   } catch (e) {
     document.getElementById('aiResponse').textContent = `⚠️ Analyse IA indisponible. Tier ${tier} · PWR ${brawler.power}/11 · ${sps} star powers · ${gads} gadgets`;
@@ -2138,7 +2136,7 @@ function hideStatus() {
 //  CONFIG PANEL
 // ══════════════════════════════════════
 function openConfig() {
-  const saved = localStorage.getItem('claude_api_key') || '';
+  const saved = localStorage.getItem('groq_api_key') || '';
   document.getElementById('claudeKeyInput').value = saved;
   document.getElementById('configStatus').className = 'config-status';
   document.getElementById('configOverlay').classList.add('open');
@@ -2152,8 +2150,8 @@ async function saveConfig() {
   const key = document.getElementById('claudeKeyInput').value.trim();
   const statusEl = document.getElementById('configStatus');
 
-  if (!key.startsWith('sk-ant-')) {
-    statusEl.textContent = '❌ Clé invalide. Elle doit commencer par sk-ant-...';
+  if (!key.startsWith('gsk_')) {
+    statusEl.textContent = '❌ Clé invalide. Elle doit commencer par gsk_...';
     statusEl.className = 'config-status err';
     return;
   }
@@ -2162,16 +2160,14 @@ async function saveConfig() {
   statusEl.className = 'config-status ok';
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
+        'Authorization': `Bearer ${key}`
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'llama-3.3-70b-versatile',
         max_tokens: 10,
         messages: [{ role: 'user', content: 'ok' }]
       })
@@ -2182,7 +2178,7 @@ async function saveConfig() {
       statusEl.className = 'config-status err';
       return;
     }
-    localStorage.setItem('claude_api_key', key);
+    localStorage.setItem('groq_api_key', key);
     statusEl.textContent = '✅ Clé valide et sauvegardée !';
     statusEl.className = 'config-status ok';
     document.getElementById('configBtn').classList.add('configured');
@@ -2206,7 +2202,7 @@ if (savedTag) {
 }
 
 // Show green checkmark if key already saved
-if (localStorage.getItem('claude_api_key')) {
+if (localStorage.getItem('groq_api_key')) {
   const btn = document.getElementById('configBtn');
   if (btn) { btn.classList.add('configured'); btn.textContent = '✅'; }
 }
