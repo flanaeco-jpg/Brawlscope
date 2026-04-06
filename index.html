@@ -1410,7 +1410,7 @@ async function fetchPlayer() {
   let lastErr = '';
 
   try {
-    const res = await fetch(`/.netlify/functions/Proxy?tag=${encodedTag}`);}
+    const res = await fetch(`/.netlify/functions/Proxy?tag=${encodedTag}`);
     if (res.ok) {
       data = await res.json();
     } else if (res.status === 404) {
