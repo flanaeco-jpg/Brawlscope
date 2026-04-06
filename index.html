@@ -871,6 +871,450 @@
     font-size: 16px;
     transition: all 0.2s;
   }
+  .config-btn:hover { border-colorvar(--text-muted);
+    width: 32px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .brawler-img-small {
+    width: 52px; height: 52px;
+    border-radius: 10px;
+    object-fit: cover;
+    background: var(--surface2);
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+  }
+
+  .priority-info { flex: 1; min-width: 0; }
+
+  .priority-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .priority-details {
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .priority-score {
+    font-family: 'Orbitron', monospace;
+    font-size: 22px;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  .tier-badge {
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Orbitron', monospace;
+    flex-shrink: 0;
+  }
+
+  .tier-S { background: rgba(255,71,87,0.2); color: var(--tier-s); border: 1px solid rgba(255,71,87,0.4); }
+  .tier-A { background: rgba(255,107,53,0.2); color: var(--tier-a); border: 1px solid rgba(255,107,53,0.4); }
+  .tier-B { background: rgba(247,201,72,0.2); color: var(--tier-b); border: 1px solid rgba(247,201,72,0.4); }
+  .tier-C { background: rgba(123,237,159,0.2); color: var(--tier-c); border: 1px solid rgba(123,237,159,0.4); }
+  .tier-D { background: rgba(164,176,190,0.2); color: var(--tier-d); border: 1px solid rgba(164,176,190,0.4); }
+
+  /* ─── BRAWLER GRID ─── */
+  .brawler-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+  }
+
+  .brawler-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .brawler-card:hover {
+    border-color: rgba(247,201,72,0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+
+  .brawler-card-img {
+    width: 80px; height: 80px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin: 0 auto 10px;
+    display: block;
+    background: var(--surface2);
+  }
+
+  .brawler-card-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .power-bar {
+    height: 4px;
+    background: var(--surface3);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+
+  .power-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent3), var(--accent));
+    transition: width 0.5s ease;
+  }
+
+  .power-level-badge {
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .card-icons {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  .icon-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--surface3);
+  }
+
+  .icon-dot.owned { background: var(--accent3); }
+
+  /* ─── META GRID ─── */
+  .meta-section { margin-bottom: 32px; }
+
+  .meta-tier-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .meta-tier-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 22px;
+    font-weight: 900;
+    width: 36px;
+  }
+
+  .meta-tier-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .meta-brawler-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .meta-brawler-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .meta-brawler-chip.owned {
+    border-color: rgba(247,201,72,0.5);
+    background: rgba(247,201,72,0.05);
+  }
+
+  .meta-brawler-chip:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+  }
+
+  .meta-chip-img {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--surface2);
+  }
+
+  .meta-chip-name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  /* ─── AI MODAL ─── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(7,10,15,0.92);
+    z-index: 1000;
+    padding: 20px;
+    overflow-y: auto;
+    backdrop-filter: blur(8px);
+  }
+
+  .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid rgba(247,201,72,0.3);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 680px;
+    margin: auto;
+    overflow: hidden;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.8), var(--glow-strong);
+    animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal-header {
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(135deg, rgba(247,201,72,0.05), transparent);
+  }
+
+  .modal-brawler-img {
+    width: 72px; height: 72px;
+    border-radius: 14px;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+  }
+
+  .modal-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .modal-close {
+    margin-left: auto;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .modal-close:hover { color: var(--text); border-color: var(--accent); }
+
+  .modal-body { padding: 28px; }
+
+  .ai-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-family: 'Orbitron', monospace;
+    color: var(--accent3);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .ai-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent3);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  .ai-response {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+    white-space: pre-wrap;
+    min-height: 80px;
+  }
+
+  .ai-loading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+
+  .section-count {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ─── RESOURCES BANNER ─── */
+  .resources-banner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    align-items: center;
+  }
+
+  .resource-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .resource-icon { font-size: 18px; }
+
+  .resource-info { display: flex; flex-direction: column; }
+
+  .resource-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .resource-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ─── EMPTY STATE ─── */
+  .empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-muted);
+  }
+
+  .empty-icon { font-size: 48px; margin-bottom: 16px; }
+
+  .empty-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .empty-sub { font-size: 14px; font-family: 'Inter', sans-serif; }
+
+  /* ─── DASHBOARD ─── */
+  #dashboard { display: none; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .search-bar { flex-direction: column; }
+    .tabs { flex-direction: column; }
+    .brawler-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+    .player-card { flex-direction: column; text-align: center; }
+    .player-stats { justify-content: center; }
+  }
+
+  /* ─── HIGHLIGHT ANIMATION ─── */
+  .highlight-in {
+    animation: highlightPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes highlightPop {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* ─── COST TAG ─── */
+  .cost-tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .cost-coins { color: var(--accent); font-weight: 700; font-family: 'Orbitron', monospace; font-size: 11px; }
+  .cost-pp { color: var(--accent3); font-weight: 700; font-family: 'Orbitron', monospace; font-size: 11px; }
+
+  /* ─── CONFIG PANEL ─── */
+  .config-btn {
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s;
+  }
   .config-btn:hover { border-color: var(--accent3); color: var(--accent3); background: rgba(0,212,255,0.08); }
   .config-btn.configured { border-color: #7bed9f; color: #7bed9f; background: rgba(123,237,159,0.08); }
 
