@@ -5,11 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BRAWLSCOPS — Smart Upgrade Advisor by FLAZEOX</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-<!-- Preload Brawlify resource icons -->
-<link rel="preload" href="https://cdn.brawlify.com/general/Coins.png" as="image">
-<link rel="preload" href="https://cdn.brawlify.com/general/PowerPoints.png" as="image">
-<link rel="preload" href="https://cdn.brawlify.com/general/StarPower.png" as="image">
-<link rel="preload" href="https://cdn.brawlify.com/general/Gadget.png" as="image">
 <style>
 /* ══════════════════════════════════════
    ROOT VARIABLES — thème lumineux/contrasté
@@ -751,300 +746,6 @@ header {
 .config-status.err { background: rgba(255,71,87,0.1); color: #ff6b7a; border: 1px solid rgba(255,71,87,0.2); display: block; }
 
 /* ══════════════════════════════════════
-   DOT INDICATORS (SP / Gadget) — no broken img
-══════════════════════════════════════ */
-.dot-sp, .dot-gad {
-  display: inline-block;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--surface3);
-  border: 1px solid var(--border2);
-  transition: background 0.2s;
-}
-.dot-sp.on { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 6px rgba(247,201,72,0.5); }
-.dot-gad.on { background: var(--accent2); border-color: var(--accent2); box-shadow: 0 0 6px rgba(255,112,67,0.5); }
-
-/* ══════════════════════════════════════
-   ANALYSER BUTTON (grande, bien visible)
-══════════════════════════════════════ */
-.analyser-btn {
-  width: 100%;
-  padding: 8px 10px;
-  background: linear-gradient(135deg, #ff5733, #a855f7);
-  border: none;
-  border-radius: 8px;
-  color: white;
-  font-family: 'Orbitron', monospace;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  margin-top: 2px;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-.analyser-btn:hover { transform: scale(1.03); box-shadow: 0 4px 15px rgba(168,85,247,0.4); }
-
-.analyser-card-btn {
-  display: block;
-  width: calc(100% - 16px);
-  margin: 8px 8px 8px;
-  padding: 7px;
-  background: linear-gradient(135deg, #ff5733, #a855f7);
-  border: none;
-  border-radius: 8px;
-  color: white;
-  font-family: 'Orbitron', monospace;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.analyser-card-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(168,85,247,0.4); }
-
-/* ══════════════════════════════════════
-   ANALYSER MODAL
-══════════════════════════════════════ */
-.anl-overlay {
-  display: none;
-  position: fixed; inset: 0;
-  background: rgba(5,8,18,0.95);
-  z-index: 3000;
-  padding: 16px;
-  overflow-y: auto;
-  backdrop-filter: blur(14px);
-}
-.anl-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
-
-.anl-modal {
-  background: var(--surface);
-  border: 1px solid rgba(255,87,51,0.3);
-  border-top: 3px solid;
-  border-image: linear-gradient(90deg, #ff5733, #a855f7) 1;
-  border-radius: 18px;
-  width: 100%;
-  max-width: 680px;
-  margin: auto;
-  overflow: hidden;
-  box-shadow: 0 0 60px rgba(168,85,247,0.15), 0 40px 120px rgba(0,0,0,0.8);
-  animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
-}
-
-.anl-header {
-  padding: 18px 22px;
-  border-bottom: 1px solid var(--border2);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: linear-gradient(135deg, rgba(255,87,51,0.06), rgba(168,85,247,0.06));
-}
-
-.anl-img {
-  width: 64px; height: 64px;
-  border-radius: 12px;
-  border: 2px solid rgba(168,85,247,0.5);
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.anl-name {
-  font-family: 'Orbitron', monospace;
-  font-size: 18px;
-  font-weight: 700;
-  background: linear-gradient(90deg, #ff5733, #a855f7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.anl-close {
-  margin-left: auto;
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  color: var(--text-muted);
-  width: 34px; height: 34px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s;
-  flex-shrink: 0;
-}
-.anl-close:hover { color: var(--text); border-color: #a855f7; }
-
-.anl-body { padding: 20px 22px; }
-
-.anl-section-title {
-  font-family: 'Orbitron', monospace;
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: var(--text-muted);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.anl-ai-text {
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  line-height: 1.75;
-  color: var(--text2);
-  white-space: pre-wrap;
-  min-height: 60px;
-}
-
-.anl-res-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.anl-res-item {
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  border-radius: 10px;
-  padding: 10px 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.anl-res-emoji { font-size: 18px; flex-shrink: 0; }
-
-.anl-res-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: var(--accent);
-  font-family: 'Orbitron', monospace;
-  font-size: 14px;
-  font-weight: 700;
-  outline: none;
-  min-width: 0;
-  width: 100%;
-}
-.anl-res-input::placeholder { color: var(--text-muted); font-weight: 400; font-size: 11px; }
-
-.anl-sim-btn {
-  width: 100%;
-  padding: 11px;
-  background: linear-gradient(135deg, #ff5733, #a855f7);
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-family: 'Orbitron', monospace;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s;
-  letter-spacing: 0.5px;
-}
-.anl-sim-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(168,85,247,0.4); }
-
-/* Simulation result inside analyser */
-.anl-sim-title {
-  font-family: 'Orbitron', monospace;
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: var(--accent4);
-  margin-bottom: 12px;
-}
-
-.anl-sim-compare {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.anl-sim-card {
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  border-radius: 10px;
-  padding: 12px;
-  text-align: center;
-}
-.anl-sim-card.after { border-color: rgba(168,85,247,0.4); background: rgba(168,85,247,0.06); }
-
-.anl-sim-label { font-size: 9px; letter-spacing: 2px; color: var(--text-muted); font-family: 'Orbitron', monospace; margin-bottom: 6px; }
-.anl-sim-card.after .anl-sim-label { color: #a855f7; }
-.anl-sim-power { font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; color: var(--text-muted); line-height: 1; }
-.anl-sim-card.after .anl-sim-power { color: #a855f7; }
-.anl-sim-sub { font-size: 10px; color: var(--text-muted); font-family: 'Inter', sans-serif; margin-top: 4px; }
-.anl-sim-arrow { font-size: 20px; color: #a855f7; text-align: center; }
-
-.anl-unlocks { margin-bottom: 12px; }
-.anl-unlock-item {
-  padding: 6px 10px;
-  background: rgba(168,85,247,0.08);
-  border: 1px solid rgba(168,85,247,0.2);
-  border-radius: 8px;
-  font-size: 12px;
-  font-family: 'Inter', sans-serif;
-  margin-bottom: 5px;
-  color: var(--text2);
-}
-
-.anl-budget {
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  border-radius: 10px;
-  padding: 12px 14px;
-  margin-bottom: 12px;
-}
-.anl-budget-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  font-family: 'Inter', sans-serif;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-}
-.anl-budget-row:last-child { margin-bottom: 0; }
-
-.anl-sim-verdict {
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-family: 'Inter', sans-serif;
-  line-height: 1.5;
-  font-weight: 500;
-}
-.anl-sim-verdict.good { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3); color: #4ade80; }
-.anl-sim-verdict.warn { background: rgba(247,201,72,0.1); border: 1px solid rgba(247,201,72,0.3); color: var(--accent); }
-.anl-sim-verdict.bad { background: rgba(255,71,87,0.1); border: 1px solid rgba(255,71,87,0.3); color: #ff6b7a; }
-.anl-sim-verdict.max { background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.3); color: #a855f7; }
-
-/* ══════════════════════════════════════
-   RESOURCE ICON EMOJI (no CDN needed)
-══════════════════════════════════════ */
-.icon-coin { font-size: 13px; }
-.icon-pp { font-size: 13px; }
-
-/* ══════════════════════════════════════
-   RESOURCE SUMMARY DISPLAY
-══════════════════════════════════════ */
-.resource-panel-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-#resourceSummary {
-  animation: highlightPop 0.3s ease;
-}
-
-@keyframes resGlow {
-  0%, 100% { box-shadow: 0 0 10px rgba(247,201,72,0.1); }
-  50% { box-shadow: 0 0 20px rgba(247,201,72,0.3); }
-}
-
-/* ══════════════════════════════════════
    FOOTER
 ══════════════════════════════════════ */
 footer {
@@ -1467,19 +1168,19 @@ footer {
         <div class="tuto-card-title">💰 RESSOURCES</div>
         <div class="tuto-legend">
           <div class="tuto-legend-item">
-            <img class="tuto-icon" src="https://cdn.brawlify.com/general/Coins.png" onerror="this.outerHTML='🪙'" alt="coins" loading="lazy">
+            <img class="tuto-icon" src="https://cdn.brawlify.com/general/Coins.png" onerror="this.style.display='none'" alt="coins">
             <span><strong style="color:var(--accent)">Pièces</strong> — pour upgrader les niveaux</span>
           </div>
           <div class="tuto-legend-item">
-            <img class="tuto-icon" src="https://cdn.brawlify.com/general/PowerPoints.png" onerror="this.outerHTML='🔵'" alt="pp" loading="lazy">
+            <img class="tuto-icon" src="https://cdn.brawlify.com/general/PowerPoints.png" onerror="this.style.display='none'" alt="pp">
             <span><strong style="color:var(--accent3)">Power Points</strong> — collectés en jeu</span>
           </div>
           <div class="tuto-legend-item">
-            <img class="tuto-icon" src="https://cdn.brawlify.com/general/StarPower.png" onerror="this.outerHTML='⭐'" alt="sp" loading="lazy">
+            <img class="tuto-icon" src="https://cdn.brawlify.com/general/StarPower.png" onerror="this.style.display='none'" alt="sp">
             <span><strong style="color:var(--accent)">Star Power</strong> — débloqué niv. 9+</span>
           </div>
           <div class="tuto-legend-item">
-            <img class="tuto-icon" src="https://cdn.brawlify.com/general/Gadget.png" onerror="this.outerHTML='🔧'" alt="gad" loading="lazy">
+            <img class="tuto-icon" src="https://cdn.brawlify.com/general/Gadget.png" onerror="this.style.display='none'" alt="gad">
             <span><strong style="color:var(--accent2)">Gadget</strong> — objet actif en combat</span>
           </div>
         </div>
@@ -1505,67 +1206,33 @@ footer {
 
   <!-- RESOURCE PANEL -->
   <div class="resource-panel" id="resourcePanel">
-    <div class="resource-panel-title">
-      💰 MES RESSOURCES
-      <span style="font-size:10px;color:var(--text-muted);font-family:'Inter',sans-serif;font-weight:400;margin-left:8px;letter-spacing:0">— Entre tes ressources manuellement</span>
-    </div>
-    <div style="background:rgba(41,212,255,0.06);border:1px solid rgba(41,212,255,0.15);border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:11px;color:var(--text-muted);font-family:'Inter',sans-serif;line-height:1.4;">
-      ℹ️ <strong style="color:var(--accent3)">Note :</strong> L'API Brawl Stars ne transmet pas les ressources. Entre tes pièces et PP depuis le jeu. Elles seront sauvegardées automatiquement.
-    </div>
+    <div class="resource-panel-title">💰 MES RESSOURCES — CALCULATEUR</div>
     <div class="resource-inputs">
       <div class="resource-input-item">
         <label class="resource-input-label">
-          <span style="font-size:20px;line-height:1">🪙</span>
-          Pièces
+          <img src="https://cdn.brawlify.com/general/Coins.png" onerror="this.style.display='none'" alt="coins"> Pièces
         </label>
-        <input type="number" class="resource-input-field" id="resCoins" placeholder="Ex: 5000" min="0">
+        <input type="number" class="resource-input-field" id="resCoins" placeholder="0" min="0">
       </div>
       <div class="resource-input-item">
         <label class="resource-input-label">
-          <span style="font-size:20px;line-height:1">🔵</span>
-          Power Points
+          <img src="https://cdn.brawlify.com/general/PowerPoints.png" onerror="this.style.display='none'" alt="pp"> Power Points
         </label>
-        <input type="number" class="resource-input-field" id="resPP" placeholder="Ex: 2000" min="0">
+        <input type="number" class="resource-input-field" id="resPP" placeholder="0" min="0">
       </div>
       <div class="resource-input-item">
         <label class="resource-input-label">
-          <span style="font-size:20px;line-height:1">💎</span>
-          Gemmes
+          <img src="https://cdn.brawlify.com/general/Gem.png" onerror="this.replaceWith(document.createTextNode('💎'))" alt="gem"> Gemmes
         </label>
-        <input type="number" class="resource-input-field" id="resGems" placeholder="Ex: 150" min="0">
+        <input type="number" class="resource-input-field" id="resGems" placeholder="0" min="0">
       </div>
       <div class="resource-input-item">
         <label class="resource-input-label">
-          <span style="font-size:20px;line-height:1">🎟️</span>
-          Crédits
+          <img src="https://cdn.brawlify.com/general/Credits.png" onerror="this.replaceWith(document.createTextNode('🪙'))" alt="credits"> Crédits
         </label>
-        <input type="number" class="resource-input-field" id="resCredits" placeholder="Ex: 300" min="0">
+        <input type="number" class="resource-input-field" id="resCredits" placeholder="0" min="0">
       </div>
     </div>
-
-    <!-- Resource summary display after entry -->
-    <div id="resourceSummary" style="display:none;margin-bottom:12px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;">
-      <div style="font-size:10px;letter-spacing:2px;color:var(--text-muted);font-family:'Orbitron',monospace;margin-bottom:8px;">TON INVENTAIRE</div>
-      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
-        <div style="display:flex;align-items:center;gap:6px;">
-          <img src="https://cdn.brawlify.com/general/Coins.png" onerror="this.outerHTML='🪙'" style="width:18px;height:18px;object-fit:contain">
-          <span id="summaryCoins" style="font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:var(--accent)">0</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <img src="https://cdn.brawlify.com/general/PowerPoints.png" onerror="this.outerHTML='🔵'" style="width:18px;height:18px;object-fit:contain">
-          <span id="summaryPP" style="font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:var(--accent3)">0</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <img src="https://cdn.brawlify.com/general/Gem.png" onerror="this.outerHTML='💎'" style="width:18px;height:18px;object-fit:contain">
-          <span id="summaryGems" style="font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:#a78bfa">0</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <img src="https://cdn.brawlify.com/general/Credits.png" onerror="this.outerHTML='🎟️'" style="width:18px;height:18px;object-fit:contain">
-          <span id="summaryCredits" style="font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:#ff7043">0</span>
-        </div>
-      </div>
-    </div>
-
     <button class="resource-calc-btn" onclick="calcMultiUpgrade()">⚡ CALCULER COMBIEN DE BRAWLERS JE PEUX MAXER</button>
     <div class="resource-calc-result" id="calcResult"></div>
   </div>
@@ -1688,14 +1355,14 @@ footer {
 
 <footer>
   <div>BRAWLSCOPS — Non affilié à Supercell. Images &copy; Brawlify CDN / Supercell Fan Content Policy.</div>
-  <div style="margin-top:5px;color:var(--text-muted)">Powered by Brawl Stars Official API + Groq AI (llama-3.3-70b)</div>
-  <div style="margin-top:8px;font-family:Orbitron,monospace;font-size:12px;letter-spacing:3px;color:var(--accent);text-shadow:0 0 12px rgba(247,201,72,0.4)">⚡ BRAWLSCOPS — FAIT PAR <span style="color:var(--accent2)">FLAZEOX</span></div>
+  <div style="margin-top:5px">Powered by Brawl Stars Official API + Groq AI</div>
+  <div style="margin-top:8px;font-family:Orbitron,monospace;font-size:12px;letter-spacing:3px;color:var(--accent);text-shadow:0 0 12px rgba(247,201,72,0.4)">⚡ BRAWLSCOPS — FAIT PAR FLAZEOX</div>
   <div style="margin-top:10px">
-    <a href="https://youtube.com/@flaneox?si=bQLZWBoI4q6HcL36" target="_blank" rel="noopener"
+    <a href="https://youtube.com/@flazeox?si=bQLZWBoI4q6HcL36" target="_blank" rel="noopener"
        style="display:inline-flex;align-items:center;gap:7px;padding:7px 16px;background:linear-gradient(135deg,#ff0000,#cc0000);border-radius:20px;color:#fff;font-family:Orbitron,monospace;font-size:11px;font-weight:700;letter-spacing:1px;text-decoration:none;box-shadow:0 3px 12px rgba(255,0,0,0.3)"
        onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-      CHAÎNE YOUTUBE — FLANEOX
+      CHAÎNE YOUTUBE — FLAZEOX
     </a>
   </div>
 </footer>
@@ -1948,7 +1615,7 @@ async function fetchPlayer() {
   let data = null;
 
   try {
-    const res = await fetch(`https://brawl-proxy.flanaeco.workers.dev/?tag=${enc}`);
+    const res = await fetch(`https://brawlscope.onrender.com/?tag=${enc}`);
     if(res.status===404) {
       showStatus(t('errNotFound'),'error');
       showLoader(false);
@@ -2009,47 +1676,6 @@ function renderDashboard(data) {
   document.getElementById('dashboard').scrollIntoView({behavior:'smooth'});
 }
 
-// ══════════════════════════════════════
-//  ICON HELPER — évite les SyntaxError dans les templates
-// ══════════════════════════════════════
-const ICON_URLS = {
-  coins: 'https://cdn.brawlify.com/general/Coins.png',
-  pp: 'https://cdn.brawlify.com/general/PowerPoints.png',
-  sp: 'https://cdn.brawlify.com/general/StarPower.png',
-  gadget: 'https://cdn.brawlify.com/general/Gadget.png',
-  gem: 'https://cdn.brawlify.com/general/Gem.png',
-  credits: 'https://cdn.brawlify.com/general/Credits.png',
-};
-const ICON_FALLBACK = { coins:'🪙', pp:'🔵', sp:'⭐', gadget:'🔧', gem:'💎', credits:'🎟️' };
-
-// Pre-test icons on load and cache results
-const ICON_WORKS = {};
-function testIcons() {
-  Object.entries(ICON_URLS).forEach(([key, url]) => {
-    const img = new Image();
-    img.onload = () => { ICON_WORKS[key] = true; };
-    img.onerror = () => { ICON_WORKS[key] = false; };
-    img.src = url;
-  });
-}
-testIcons();
-
-function icon(type, style='') {
-  // Returns HTML for an icon — uses img if CDN works, else emoji span
-  const url = ICON_URLS[type];
-  const fallback = ICON_FALLBACK[type];
-  const extra = style ? ` style="${style}"` : '';
-  // We use a container with both img and span; CSS hides span when img loads
-  return `<span class="icon-wrap" data-type="${type}"${extra}><img class="res-icon" src="${url}" onload="this.parentElement.classList.add('loaded')" onerror="this.parentElement.classList.add('failed')" alt="${type}"><span class="icon-emoji">${fallback}</span></span>`;
-}
-
-function iconSp(owned) {
-  return `<span class="sp-dot${owned?' sp-owned':''}"></span>`;
-}
-function iconGad(owned) {
-  return `<span class="gad-dot${owned?' gad-owned':''}"></span>`;
-}
-
 function renderPriorities(brawlers) {
   if(!brawlers?.length) return;
   const sorted = [...brawlers]
@@ -2063,32 +1689,28 @@ function renderPriorities(brawlers) {
     const sps = b.starPowers?.length||0, gads = b.gadgets?.length||0;
     const hc = hasHypercharge(b), sc = scoreToColor(b.score,maxScore);
     const af = getAffordStatus(b);
-    const afColor = af==='ok'?'#4ade80':af==='warn'?'var(--accent)':af==='no'?'#ff6b7a':'';
-    const afText = af==='ok'?'✓ Budget OK':af==='warn'?'⚠ Partiel':af==='no'?'✗ Insuffisant':'';
-    const bData = encodeURIComponent(JSON.stringify(b));
-    return `<div class="priority-item tier-${b.tier}${hc?' has-hc':''}" style="border-left-color:${sc}">
+    const afBadge = af==='ok' ? '<span class="afford-ok">✓</span>' : af==='warn' ? '<span class="afford-warn">⚠</span>' : af==='no' ? '<span class="afford-no">✗</span>' : '';
+    return `<div class="priority-item tier-${b.tier}${hc?' has-hc':''}" style="border-left-color:${sc}" onclick="openModal(${JSON.stringify(b).replace(/"/g,'&quot;')})">
       <div class="priority-rank">${i+1}</div>
-      <img class="brawler-img-small" src="${getBrawlerImg(b.id)}" alt="${b.name}"
-           onerror="this.style.background='var(--surface3)';this.src='https://cdn.brawlify.com/brawlers/borders/16000000.png'">
-      <div class="priority-info" onclick="openModal(decodeB('${bData}'))" style="cursor:pointer">
+      <img class="brawler-img-small" src="${getBrawlerImg(b.id)}" alt="${b.name}" onerror="this.src='https://cdn.brawlify.com/brawlers/borders/16000000.png'">
+      <div class="priority-info">
         <div class="priority-name">${b.name}${hc?' <span class="hc-inline">⚡HC</span>':''} <span class="rarity-badge rarity-${getBrawlerRarity(b.name)}">${getRarityLabel(getBrawlerRarity(b.name))}</span></div>
         <div class="priority-details">
-          <span>⚡ PWR ${b.power}/11</span>
-          <span>⭐ ${sps}/2 SP</span>
-          <span>🔧 ${gads}/2 GAD</span>
+          <span><img class="res-icon" src="https://cdn.brawlify.com/general/PowerPoints.png" onerror="this.style.display='none'" alt="">PWR ${b.power}/11</span>
+          <span><img class="res-icon" src="https://cdn.brawlify.com/general/StarPower.png" onerror="this.style.display='none'" alt="">${sps}/2</span>
+          <span><img class="res-icon" src="https://cdn.brawlify.com/general/Gadget.png" onerror="this.style.display='none'" alt="">${gads}/2</span>
           <span class="cost-tag">
-            <span class="icon-coin">🪙</span>
+            <img class="res-icon" src="https://cdn.brawlify.com/general/Coins.png" onerror="this.style.display='none'" alt="">
             <span class="cost-coins">${cost.coins.toLocaleString()}</span>·
-            <span class="icon-pp">🔵</span>
-            <span class="cost-pp">${cost.pp.toLocaleString()}</span>
-            ${afText?`<span style="color:${afColor};font-size:10px;font-weight:700;margin-left:2px">${afText}</span>`:''}
+            <img class="res-icon" src="https://cdn.brawlify.com/general/PowerPoints.png" onerror="this.style.display='none'" alt="">
+            <span class="cost-pp">${cost.pp.toLocaleString()}</span>${afBadge}
           </span>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0">
         <span class="tier-badge tier-${b.tier}">${b.tier}</span>
         <div class="priority-score" style="color:${sc}">${b.score}</div>
-        <button class="analyser-btn" onclick="openAnalyser(decodeB('${bData}'))">🤖 ANALYSER</button>
+        <button class="sim-priority-btn" onclick="event.stopPropagation();openSimulator(${JSON.stringify(b).replace(/"/g,'&quot;')})">⚡ SIMULER</button>
       </div>
     </div>`;
   }).join('');
@@ -2103,25 +1725,22 @@ function renderBrawlers(brawlers) {
     const sps=b.starPowers?.length||0, gads=b.gadgets?.length||0;
     const pct=((b.power-1)/10)*100, hc=hasHypercharge(b);
     const pwrColor = b.power===11&&hc?'#a78bfa':b.power===11?'#29d4ff':b.power>=9?'var(--accent)':'var(--text-muted)';
-    const bData = encodeURIComponent(JSON.stringify(b));
-    // SP/Gadget dots — pure CSS, no broken img tags
-    const spDots = `<span class="dot-sp${sps>=1?' on':''}"></span><span class="dot-sp${sps>=2?' on':''}"></span>`;
-    const gadDots = `<span class="dot-gad${gads>=1?' on':''}"></span><span class="dot-gad${gads>=2?' on':''}"></span>`;
-    return `<div class="brawler-card tier-${tier} rarity-${rarity}${hc?' has-hc':''}" onclick="openModal(decodeB('${bData}'))">
+    return `<div class="brawler-card tier-${tier} rarity-${rarity}${hc?' has-hc':''}" style="padding-bottom:36px" onclick="openModal(${JSON.stringify(b).replace(/"/g,'&quot;')})">
       ${hc?'<span class="hc-badge">⚡ HC</span>':(b.power===11?'<span class="hc-unlock-badge">🔓 HC?</span>':'')}
       <span class="tier-badge tier-${tier}" style="position:absolute;top:7px;right:7px;font-size:9px;padding:1px 5px">${tier}</span>
-      <img class="brawler-card-img" src="${getBrawlerImg(b.id)}" alt="${b.name}"
-           onerror="this.src='https://cdn.brawlify.com/brawlers/borders/16000000.png'">
+      <img class="brawler-card-img" src="${getBrawlerImg(b.id)}" alt="${b.name}" onerror="this.src='https://cdn.brawlify.com/brawlers/borders/16000000.png'">
       <div class="brawler-card-name">${b.name}</div>
       <div style="text-align:center;margin-bottom:4px"><span class="rarity-badge rarity-${rarity}">${getRarityLabel(rarity)}</span></div>
       <div class="power-bar"><div class="power-fill ${getPowerBarClass(b,hc)}" style="width:${pct}%"></div></div>
       <div class="power-level-badge" style="color:${pwrColor}">PWR ${b.power}${b.power===11&&hc?' ⚡':''}</div>
-      <div class="card-icons" style="margin-top:5px;display:flex;align-items:center;justify-content:center;gap:3px">
-        <span style="font-size:10px">⭐</span>${spDots}
-        <span style="width:4px"></span>
-        <span style="font-size:10px">🔧</span>${gadDots}
+      <div class="card-icons" style="margin-top:5px">
+        <img class="res-icon" src="https://cdn.brawlify.com/general/StarPower.png" onerror="this.style.display='none'" alt="" style="opacity:${sps>=1?'1':'0.2'}">
+        <img class="res-icon" src="https://cdn.brawlify.com/general/StarPower.png" onerror="this.style.display='none'" alt="" style="opacity:${sps>=2?'1':'0.2'}">
+        <span style="width:5px;display:inline-block"></span>
+        <img class="res-icon" src="https://cdn.brawlify.com/general/Gadget.png" onerror="this.style.display='none'" alt="" style="opacity:${gads>=1?'1':'0.2'}">
+        <img class="res-icon" src="https://cdn.brawlify.com/general/Gadget.png" onerror="this.style.display='none'" alt="" style="opacity:${gads>=2?'1':'0.2'}">
       </div>
-      <button class="analyser-card-btn" onclick="event.stopPropagation();openAnalyser(decodeB('${bData}'))">🤖 ANALYSER</button>
+      <button class="sim-trigger-btn" onclick="event.stopPropagation();openSimulator(${JSON.stringify(b).replace(/"/g,'&quot;')})">⚡ SIMULER</button>
     </div>`;
   }).join('');
 }
@@ -2220,37 +1839,13 @@ function toggleTutorial(){
 }
 
 function getResources(){return{coins:parseInt(document.getElementById('resCoins')?.value)||0,pp:parseInt(document.getElementById('resPP')?.value)||0,gems:parseInt(document.getElementById('resGems')?.value)||0,credits:parseInt(document.getElementById('resCredits')?.value)||0};}
-
-function updateResourceSummary() {
-  const r = getResources();
-  const hasAny = r.coins > 0 || r.pp > 0 || r.gems > 0 || r.credits > 0;
-  const summary = document.getElementById('resourceSummary');
-  if (summary) {
-    summary.style.display = hasAny ? 'block' : 'none';
-    const sc = document.getElementById('summaryCoins');
-    const sp = document.getElementById('summaryPP');
-    const sg = document.getElementById('summaryGems');
-    const scr = document.getElementById('summaryCredits');
-    if (sc) sc.textContent = r.coins.toLocaleString();
-    if (sp) sp.textContent = r.pp.toLocaleString();
-    if (sg) sg.textContent = r.gems.toLocaleString();
-    if (scr) scr.textContent = r.credits.toLocaleString();
-  }
-}
-
-function saveResources(){
-  localStorage.setItem('user_resources', JSON.stringify(getResources()));
-  updateResourceSummary();
-  if(playerData) renderPriorities(playerData.brawlers);
-}
-
+function saveResources(){localStorage.setItem('user_resources',JSON.stringify(getResources()));}
 function loadResources(){
   try{const r=JSON.parse(localStorage.getItem('user_resources')||'{}');
     if(r.coins!==undefined)document.getElementById('resCoins').value=r.coins;
     if(r.pp!==undefined)document.getElementById('resPP').value=r.pp;
     if(r.gems!==undefined)document.getElementById('resGems').value=r.gems;
     if(r.credits!==undefined)document.getElementById('resCredits').value=r.credits;
-    updateResourceSummary();
   }catch(e){}
 }
 
@@ -2289,174 +1884,7 @@ function calcMultiUpgrade(){
 
 
 // ══════════════════════════════════════
-//  DECODE HELPER
-// ══════════════════════════════════════
-function decodeB(encoded) {
-  try { return JSON.parse(decodeURIComponent(encoded)); } catch(e) { return null; }
-}
-
-// ══════════════════════════════════════
-//  ANALYSER COMBINÉ — IA + Simulation
-// ══════════════════════════════════════
-let currentAnalyserBrawler = null;
-
-async function openAnalyser(brawler) {
-  if (!brawler) return;
-  if (typeof brawler === 'string') brawler = JSON.parse(brawler);
-  currentAnalyserBrawler = brawler;
-
-  const tier = getBrawlerTier(brawler.name);
-  const sps = brawler.starPowers?.length || 0;
-  const gads = brawler.gadgets?.length || 0;
-  const hc = hasHypercharge(brawler);
-
-  // Populate analyser modal header
-  document.getElementById('anlImg').src = getBrawlerImg(brawler.id);
-  document.getElementById('anlImg').onerror = function(){ this.src='https://cdn.brawlify.com/brawlers/borders/16000000.png'; };
-  document.getElementById('anlName').textContent = brawler.name;
-  document.getElementById('anlSub').textContent = `PWR ${brawler.power}/11 · Tier ${tier} · ${brawler.trophies.toLocaleString()} 🏆`;
-  document.getElementById('anlTier').textContent = `TIER ${tier}`;
-  document.getElementById('anlTier').className = `tier-badge tier-${tier}`;
-  if(hc) document.getElementById('anlTier').textContent += ' ⚡HC';
-
-  // Reset sections
-  document.getElementById('anlAiText').innerHTML = '<div class="ai-loading"><div class="spinner" style="width:16px;height:16px;border-width:2px;margin:0;flex-shrink:0"></div><span>Analyse IA en cours...</span></div>';
-  document.getElementById('anlSimResult').style.display = 'none';
-
-  // Pre-fill resources from saved
-  const r = getResources();
-  document.getElementById('anlCoins').value = r.coins || '';
-  document.getElementById('anlPP').value = r.pp || '';
-
-  // Open modal
-  document.getElementById('anlOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-
-  // Launch AI analysis
-  const key = localStorage.getItem('groq_api_key') || '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';
-  const prompt = `Tu es un expert Brawl Stars. Analyse le brawler "${brawler.name}" (niveau ${brawler.power}/11, ${brawler.trophies} trophées, ${sps} star power(s), ${gads} gadget(s), Tier ${tier} méta Mai 2026${hc ? ', Hypercharge disponible' : ''}).
-
-Réponds en français (sans markdown) :
-⚡ FORCES : (2-3 points forts)
-⚠️ FAIBLESSES : (1-2 faiblesses)
-🗺️ MEILLEURS MODES : (2-3 modes optimaux)
-👥 COMPO IDÉALE : (2 brawlers synergiques)
-🔧 BUILD OPTIMAL : (star power + gadget prioritaires)${hc ? '\n⚡ HYPERCHARGE : (conseil HC)' : ''}
-📈 VERDICT : (1 phrase percutante)
-
-Sois concis et expert.`;
-
-  try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
-      body: JSON.stringify({ model: 'llama-3.3-70b-versatile', max_tokens: 900, messages: [{ role: 'user', content: prompt }] })
-    });
-    const data = await res.json();
-    if (data.error) {
-      document.getElementById('anlAiText').innerHTML = `<span style="color:#ff6b7a">❌ ${data.error.message}</span>`;
-    } else {
-      document.getElementById('anlAiText').textContent = data.choices?.[0]?.message?.content || '—';
-    }
-  } catch(e) {
-    document.getElementById('anlAiText').textContent = `⚠️ IA indisponible. Tier ${tier} · PWR ${brawler.power}/11`;
-  }
-
-  // Auto-run simulation
-  runAnlSimulation();
-}
-
-function runAnlSimulation() {
-  const brawler = currentAnalyserBrawler;
-  if (!brawler) return;
-
-  const coins = parseInt(document.getElementById('anlCoins').value) || 0;
-  const pp = parseInt(document.getElementById('anlPP').value) || 0;
-
-  // Save to main resources too
-  const rc = document.getElementById('resCoins');
-  const rp = document.getElementById('resPP');
-  if (rc) rc.value = coins;
-  if (rp) rp.value = pp;
-  saveResources();
-
-  const simDiv = document.getElementById('anlSimResult');
-
-  if (brawler.power >= 11) {
-    simDiv.innerHTML = `<div class="anl-sim-verdict max">⚡ Ce brawler est déjà au niveau maximum ! Active son Hypercharge pour dominer.</div>`;
-    simDiv.style.display = 'block';
-    return;
-  }
-
-  // Calculate max reachable level
-  let remCoins = coins, remPP = pp, targetLevel = brawler.power;
-  let spentCoins = 0, spentPP = 0;
-  for (let lvl = brawler.power; lvl < 11; lvl++) {
-    const cost = UPGRADE_COSTS[lvl];
-    if (!cost) continue;
-    if (remCoins >= cost.coins && remPP >= cost.pp) {
-      remCoins -= cost.coins; remPP -= cost.pp;
-      spentCoins += cost.coins; spentPP += cost.pp;
-      targetLevel = lvl + 1;
-    } else break;
-  }
-
-  const levelsGained = targetLevel - brawler.power;
-  const tier = getBrawlerTier(brawler.name);
-
-  // Unlocks
-  const unlocks = [];
-  if (brawler.power < 7 && targetLevel >= 7) unlocks.push('🔧 Gadgets débloqués !');
-  if (brawler.power < 9 && targetLevel >= 9) unlocks.push('⭐ Star Powers débloqués !');
-  if (targetLevel === 11) unlocks.push('⚡ Niveau MAX — Hypercharge possible !');
-
-  let verdictClass = 'warn', verdictText = '';
-  if (levelsGained === 0) {
-    verdictClass = 'bad';
-    const nextCost = UPGRADE_COSTS[brawler.power];
-    verdictText = `❌ Budget insuffisant. Il manque ${nextCost ? Math.max(0, nextCost.coins - coins).toLocaleString() + ' pièces et ' + Math.max(0, nextCost.pp - pp).toLocaleString() + ' PP' : 'des ressources'} pour le prochain niveau.`;
-  } else if (targetLevel === 11) {
-    verdictClass = 'max';
-    verdictText = `⚡ PARFAIT ! Tu peux maxer ${brawler.name} (+${levelsGained} niveaux) ! Il restera ${remCoins.toLocaleString()} 🪙 et ${remPP.toLocaleString()} 🔵.`;
-  } else if (levelsGained >= 3 && (tier === 'S' || tier === 'A')) {
-    verdictClass = 'good';
-    verdictText = `✅ Excellent ! +${levelsGained} niveaux sur un Tier ${tier}. ${unlocks[0] || ''} Reste : ${remCoins.toLocaleString()} 🪙 · ${remPP.toLocaleString()} 🔵.`;
-  } else {
-    verdictText = `⚠️ +${levelsGained} niveau(x) possible (PWR ${brawler.power}→${targetLevel}). ${targetLevel < 9 ? 'Économise pour atteindre le niv. 9 !' : 'Continue à accumuler !'} Reste : ${remCoins.toLocaleString()} 🪙 · ${remPP.toLocaleString()} 🔵.`;
-  }
-
-  simDiv.innerHTML = `
-    <div class="anl-sim-title">⚡ SIMULATION D'UPGRADE</div>
-    <div class="anl-sim-compare">
-      <div class="anl-sim-card">
-        <div class="anl-sim-label">MAINTENANT</div>
-        <div class="anl-sim-power">${brawler.power}</div>
-        <div class="anl-sim-sub">PWR actuel</div>
-      </div>
-      <div class="anl-sim-arrow">→</div>
-      <div class="anl-sim-card after">
-        <div class="anl-sim-label">APRÈS</div>
-        <div class="anl-sim-power">${targetLevel}</div>
-        <div class="anl-sim-sub">${targetLevel === 11 ? 'MAX ⚡' : 'PWR atteignable'}</div>
-      </div>
-    </div>
-    ${unlocks.length > 0 ? `<div class="anl-unlocks">${unlocks.map(u=>`<div class="anl-unlock-item">${u}</div>`).join('')}</div>` : ''}
-    <div class="anl-budget">
-      <div class="anl-budget-row"><span>💰 Coût total</span><span style="color:var(--tier-s);font-family:Orbitron,monospace;font-size:12px">${spentCoins.toLocaleString()} pièces · ${spentPP.toLocaleString()} PP</span></div>
-      <div class="anl-budget-row"><span>💎 Reste après</span><span style="color:#4ade80;font-family:Orbitron,monospace;font-size:12px">${remCoins.toLocaleString()} 🪙 · ${remPP.toLocaleString()} 🔵</span></div>
-    </div>
-    <div class="anl-sim-verdict ${verdictClass}">${verdictText}</div>`;
-  simDiv.style.display = 'block';
-}
-
-function closeAnl(e) {
-  if (e && e.target !== document.getElementById('anlOverlay')) return;
-  document.getElementById('anlOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-// ══════════════════════════════════════
-//  SIMULATOR ENGINE (legacy)
+//  SIMULATOR ENGINE
 // ══════════════════════════════════════
 let currentSimBrawler = null;
 
@@ -2659,53 +2087,7 @@ document.addEventListener('DOMContentLoaded',()=>{['resCoins','resPP','resGems',
 </script>
 
 <!-- ══════════════════════════════════════
-     ANALYSER MODAL — IA + Simulation
-══════════════════════════════════════ -->
-<div class="anl-overlay" id="anlOverlay" onclick="closeAnl(event)">
-  <div class="anl-modal">
-    <div class="anl-header">
-      <img class="anl-img" id="anlImg" src="" alt="">
-      <div style="flex:1;min-width:0">
-        <div class="anl-name" id="anlName">—</div>
-        <div style="display:flex;gap:8px;align-items:center;margin-top:4px;flex-wrap:wrap">
-          <span class="tier-badge" id="anlTier">—</span>
-          <span style="font-size:11px;color:var(--text-muted)" id="anlSub">—</span>
-        </div>
-      </div>
-      <button class="anl-close" onclick="document.getElementById('anlOverlay').classList.remove('open');document.body.style.overflow=''">✕</button>
-    </div>
-    <div class="anl-body">
-
-      <!-- AI Section -->
-      <div class="anl-section-title">
-        <span style="color:#ff5733">●</span> GROQ AI — llama-3.3-70b
-      </div>
-      <div class="anl-ai-text" id="anlAiText">
-        <div class="ai-loading"><div class="spinner" style="width:16px;height:16px;border-width:2px;margin:0;flex-shrink:0"></div><span>Analyse en cours...</span></div>
-      </div>
-
-      <!-- Simulation Section -->
-      <div class="anl-section-title" style="margin-top:20px">⚡ BUDGET D'UPGRADE</div>
-      <div class="anl-res-row">
-        <div class="anl-res-item">
-          <span class="anl-res-emoji">🪙</span>
-          <input type="number" class="anl-res-input" id="anlCoins" placeholder="Pièces" min="0">
-        </div>
-        <div class="anl-res-item">
-          <span class="anl-res-emoji">🔵</span>
-          <input type="number" class="anl-res-input" id="anlPP" placeholder="Power Points" min="0">
-        </div>
-      </div>
-      <button class="anl-sim-btn" onclick="runAnlSimulation()">⚡ SIMULER L'UPGRADE MAXIMUM</button>
-
-      <!-- Simulation Result -->
-      <div id="anlSimResult" style="display:none;margin-top:12px"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════
-     SIMULATEUR D'UPGRADE MODAL (legacy)
+     SIMULATEUR D'UPGRADE MODAL
 ══════════════════════════════════════ -->
 <div class="sim-overlay" id="simOverlay" onclick="closeSimulator(event)">
   <div class="sim-modal" id="simModal">
