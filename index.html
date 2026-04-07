@@ -1948,7 +1948,7 @@ async function fetchPlayer() {
   let data = null;
 
   try {
-    const res = await fetch(`/.netlify/functions/proxy?tag=${enc}`);
+    const res = await fetch(`https://brawl-proxy.flanaeco.workers.dev/?tag=${enc}`);
     if(res.status===404) {
       showStatus(t('errNotFound'),'error');
       showLoader(false);
