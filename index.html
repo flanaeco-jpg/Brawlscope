@@ -2341,8 +2341,7 @@ Réponds en français (sans markdown) :
 ⚠️ FAIBLESSES : (1-2 faiblesses)
 🗺️ MEILLEURS MODES : (2-3 modes optimaux)
 👥 COMPO IDÉALE : (2 brawlers synergiques)
-🔧 BUILD OPTIMAL : (star power + gadget prioritaires)${hc ? '
-⚡ HYPERCHARGE : (conseil HC)' : ''}
+🔧 BUILD OPTIMAL : (star power + gadget prioritaires)${hc ? '\n⚡ HYPERCHARGE : (conseil HC)' : ''}
 📈 VERDICT : (1 phrase percutante)
 
 Sois concis et expert.`;
@@ -2423,7 +2422,7 @@ function runAnlSimulation() {
     verdictClass = 'good';
     verdictText = `✅ Excellent ! +${levelsGained} niveaux sur un Tier ${tier}. ${unlocks[0] || ''} Reste : ${remCoins.toLocaleString()} 🪙 · ${remPP.toLocaleString()} 🔵.`;
   } else {
-    verdictText = `⚠️ +${levelsGained} niveau(x) possible (PWR ${brawler.power}→${targetLevel}). ${targetLevel < 9 ? 'Économise pour atteindre le niv. 9 !' : 'Continue d'accumuler !'} Reste : ${remCoins.toLocaleString()} 🪙 · ${remPP.toLocaleString()} 🔵.`;
+    verdictText = `⚠️ +${levelsGained} niveau(x) possible (PWR ${brawler.power}→${targetLevel}). ${targetLevel < 9 ? 'Économise pour atteindre le niv. 9 !' : 'Continue à accumuler !'} Reste : ${remCoins.toLocaleString()} 🪙 · ${remPP.toLocaleString()} 🔵.`;
   }
 
   simDiv.innerHTML = `
